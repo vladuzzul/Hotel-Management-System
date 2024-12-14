@@ -23,7 +23,7 @@ int dateToTimestamp(const std::string& date) {
     istringstream ss(date);
     ss >> get_time(&tm, "%d.%m.%Y");
     if (ss.fail()) {
-        cout << "Invalid date provided"
+        cout << "Invalid date provided\n";
     }
     return
 
