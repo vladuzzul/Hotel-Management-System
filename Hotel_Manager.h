@@ -16,20 +16,6 @@ string hotel_name {"Your hotel's"};
 ofstream camout("Camera.txt", ios::app);
 ofstream rout("Reservation.txt", ios::app);
 
-bool stob(const std::string& str) {
-
-    string normalizedStr = str;
-    transform(normalizedStr.begin(), normalizedStr.end(), normalizedStr.begin(), ::tolower);
-
-    if (normalizedStr == "true" || normalizedStr == "1") {
-        return true;
-    } else if (normalizedStr == "false" || normalizedStr == "0") {
-        return false;
-    } else {
-        throw std::invalid_argument("The value of the string can not be converted into a bool: " + str);
-    }
-}
-
 bool equal_strings(const string& lhs, const string& rhs){
     if (lhs.size() != rhs.size()){
         return false;
@@ -176,22 +162,6 @@ void deleteCamera(vector<Camera> &cameras, const int& camera_id){
     }
     cout << "\n!! Camera not found !!\n";
 }
-
-/*
-void changeAvailability(vector<Camera>& cameras, int camera_id) {
-    for (auto& camera : cameras) {
-        if (camera.id == camera_id) {
-            cout << "Current availability: " << (camera.availability ? "available" : "not available") << "\n";
-            cout << "Change availability (1 for available, 0 for not available): ";
-            cin >> camera.availability;
-            saveCamera(cameras);
-            cout << "\n!! Availability updated successfully !!\n";
-            return;
-        }
-    }
-    cout << "\n!! Camera not found !!\n";
-}
-*/
 
 void initialiseReservation(vector<Reservation>& reservations) {
     ifstream rin("Reservation.txt");
