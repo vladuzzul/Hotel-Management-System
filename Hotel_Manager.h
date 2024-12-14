@@ -126,7 +126,7 @@ void addCamera(vector<Camera>& cameras){
     cout << "\n!! Camera successfully added !!\n";
 }
 
-void showCameras(vector<Camera> cameras, vector<Reservation> reservations){
+void showCameras(const vector<Camera> cameras,const vector<Reservation> reservations){
     bool showed = false;
     for (const auto& camera : cameras) {
         cout << "\nCamera number " << camera.id << ":\n"
@@ -143,6 +143,20 @@ void showCameras(vector<Camera> cameras, vector<Reservation> reservations){
             }
         }
         showed = true;
+    }
+    if (!showed) cout << "\n!! No cameras registered yet !!\n";
+}
+
+void showAvailableCameras(const vector<Camera> cameras){
+    bool showed = false;
+    for (const auto& camera : cameras) {
+        if (camera.availability == 0){
+            cout << "\nCamera number " << camera.id << ":\n"
+                 << "\t" << "Camera price per night: " << camera.price << "$\n"
+                 << "\t" << "Camera type: " << camera.type << "\n";
+            showed = true;
+        }
+
     }
     if (!showed) cout << "\n!! No cameras registered yet !!\n";
 }
@@ -251,7 +265,7 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras){
     cout << "\n!! Reservation successfully added !!\n";
 }
 
-void showReservations(vector<Reservation> reservations, vector<Camera> cameras){
+void showReservations(const vector<Reservation> reservations, const vector<Camera> cameras){
     bool showed = false;
     for (const auto& reservation : reservations) {
         cout << "\nReservation num " << reservation.id << ":\n"
@@ -264,6 +278,7 @@ void showReservations(vector<Reservation> reservations, vector<Camera> cameras){
                 cout << "\t" << "Room type: " << camera.type << "\n";
                 double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
                 cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
+                return;
             }
         }
         showed = true;
@@ -271,7 +286,40 @@ void showReservations(vector<Reservation> reservations, vector<Camera> cameras){
     if (!showed) cout << "\n!! No reservations registered yet !!\n";
 }
 
-void searchReservation(const vector<Reservation>& reservations, const string& reservation_name, vector<Camera> cameras){
+void modifyReservation(vector<Reservation>& reservations, vector<Camera>& cameras, const string& reservation_name) {
+    for (auto& reservation : reservations) {
+        if (equal_strings(reservation.client_name, reservation_name)) {
+            for (auto& camera : cameras) {
+                if (reservation.room_number == camera.id) {
+                    camera.availability = 0;
+                }
+            }
+
+            reservation.room_number = 0;
+            reservation.check_in = "";
+            reservation.check_out = "";
+
+            cout << "Enter client's room number: "; cin >> reservation.room_number;
+            cin.ignore();
+            cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
+            cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
+
+            for (auto& camera : cameras) {
+                if (reservation.room_number == camera.id) {
+                    camera.availability += 1;
+                }
+            }
+
+            saveCamera(cameras);
+            saveReservation(reservations);
+            cout << "\n!! Reservation successfully modified !!\n";
+            return;
+        }
+    }
+    cout << "\n!! Reservation not found !!\n";
+}
+
+void searchReservation(const vector<Reservation>& reservations, const string& reservation_name,const vector<Camera> cameras){
     int nr = 0;
     bool showed = false;
     for (const auto& reservation : reservations) {
