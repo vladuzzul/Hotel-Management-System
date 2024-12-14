@@ -9,12 +9,32 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
+#include <cmath>
 using namespace std;
 
 string hotel_name {"Your hotel's"};
 
 ofstream camout("Camera.txt", ios::app);
 ofstream rout("Reservation.txt", ios::app);
+
+int dateToTimestamp(const std::string& date) {
+    tm tm = {};
+    istringstream ss(date);
+    ss >> get_time(&tm, "%d.%m.%Y");
+    if (ss.fail()) {
+        throw runtime_error("Invalid data format!!\n");
+    }
+    return
+
+    mktime(&tm);
+}
+
+int daysDifference(const std::string& date1, const std::string& date2) {
+    int timestamp1 = dateToTimestamp(date1);
+    int timestamp2 = dateToTimestamp(date2);
+    return abs((timestamp2 - timestamp1) / (60 * 60 * 24));
+}
 
 bool equal_strings(const string& lhs, const string& rhs){
     if (lhs.size() != rhs.size()){
@@ -110,7 +130,7 @@ void showCameras(vector<Camera> cameras, vector<Reservation> reservations){
     bool showed = false;
     for (const auto& camera : cameras) {
         cout << "\nCamera number " << camera.id << ":\n"
-             << "\t" << "Camera price per night: " << camera.price << "\n"
+             << "\t" << "Camera price per night: " << camera.price << "$\n"
              << "\t" << "Camera type: " << camera.type << "\n"
              << "\t" << "Camera availability: ";
         if (camera.availability == 0) cout << "available\n";
@@ -132,7 +152,7 @@ void searchCamera(const vector<Camera>& cameras, const int& camera_id, const vec
     for (const auto& camera : cameras) {
         if (camera.id == camera_id) {
             cout << "\nCamera number " << camera.id << ":\n"
-                 << "\t" << "Camera price per night: " << camera.price << "\n"
+                 << "\t" << "Camera price per night: " << camera.price << "$\n"
                  << "\t" << "Camera type: " << camera.type << "\n"
                  << "\t" << "Camera availability: ";
             if (camera.availability == 0) cout << "available\n";
@@ -240,8 +260,11 @@ void showReservations(vector<Reservation> reservations, vector<Camera> cameras){
              << "\t" << "Check-in date: " << reservation.check_in << "\n"
              << "\t" << "Check-out date: " << reservation.check_out << "\n";
         for (const auto& camera : cameras){
-            if (reservation.room_number == camera.id)
+            if (reservation.room_number == camera.id) {
                 cout << "\t" << "Room type: " << camera.type << "\n";
+                double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
+                cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
+            }
         }
         showed = true;
     }
@@ -259,8 +282,11 @@ void searchReservation(const vector<Reservation>& reservations, const string& re
                  << "\t" << "Check-in date: " << reservation.check_in << "\n"
                  << "\t" << "Check-out date: " << reservation.check_out << "\n";
             for (const auto& camera : cameras){
-                if (reservation.room_number == camera.id)
+                if (reservation.room_number == camera.id) {
                     cout << "\t" << "Room type: " << camera.type << "\n";
+                    double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
+                    cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
+                }
             }
             cout << "\n";
             showed = true;

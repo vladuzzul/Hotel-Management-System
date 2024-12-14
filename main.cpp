@@ -69,6 +69,7 @@ int main() {
                     switch (suboption) {
                         case 1: {
                             showReservations(reservations, cameras);
+                            cout << "\n\n";
                             break;
                         }
                         case 2: {
