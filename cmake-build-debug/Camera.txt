@@ -1,0 +1,4 @@
+1,199.99,Penthouse,0
+2,29.99,One person,0
+3,249.99,Luxury suite,1
+4,9.99,Paper Bed,0
