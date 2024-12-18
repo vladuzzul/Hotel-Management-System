@@ -20,10 +20,10 @@ int main() {
         switch (option) {
             case 1: {
                 suboption = 0;
-                while (suboption != 6) {
+                while (suboption != 7) {
                     cout << "\033[H\033[J\n";
                     cout << "\n=== " << hotel_name << " Room management === \n\n";
-                    cout << "1: See all rooms\n2: See available rooms\n3: Add room\n4: Delete room\n5: Search room\n6: Go back\n\n\nOption: ";
+                    cout << "1: See all rooms\n2: See available rooms\n3: Add room\n4: Delete room\n5: Modify room price\n6: Search room\n7: Go back\n\n\nOption: ";
                     cin >> suboption;
                     switch (suboption) {
                         case 1: {
@@ -57,6 +57,13 @@ int main() {
                         }
                         case 5: {
                             int id;
+                            cout << "Enter camera id: ";
+                            cin >> id;
+                            modifyCameraPrice(cameras, id);
+                            break;
+                        }
+                        case 6: {
+                            int id;
                             cout << "Enter room id: ";
                             cin >> id;
                             searchCamera(cameras, id, reservations);
@@ -67,7 +74,7 @@ int main() {
                             }
                             break;
                         }
-                        case 6: {
+                        case 7: {
                             cout << "\033[H\033[J\n";
                             break;
                         }
