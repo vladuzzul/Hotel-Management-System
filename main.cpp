@@ -12,9 +12,9 @@ int main() {
     int option = 0;
     int suboption = 0;
 
-    while (option != 3) {
-        cout << "\n === " << hotel_name << " Room and Reservation manager === \n\n";
-        cout << "1: Room management\n2: Reservation management\n3: Leave\n\n\nOption: ";
+    while (option != 4) {
+        cout << "\n=== " << hotel_name << " Room and Reservation manager === \n\n";
+        cout << "1: Room management\n2: Reservation management\n3: Get full report\n4. Leave\n\n\nOption: ";
         cin >> option;
 
         switch (option) {
@@ -22,16 +22,26 @@ int main() {
                 suboption = 0;
                 while (suboption != 6) {
                     cout << "\033[H\033[J\n";
-                    cout << "\n === " << hotel_name << " Room management === \n\n";
+                    cout << "\n=== " << hotel_name << " Room management === \n\n";
                     cout << "1: See all rooms\n2: See available rooms\n3: Add room\n4: Delete room\n5: Search room\n6: Go back\n\n\nOption: ";
                     cin >> suboption;
                     switch (suboption) {
                         case 1: {
                             showCameras(cameras, reservations);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             break;
                         }
                         case 2: {
                             showAvailableCameras(cameras);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             break;
                         }
                         case 3: {
@@ -50,6 +60,11 @@ int main() {
                             cout << "Enter room id: ";
                             cin >> id;
                             searchCamera(cameras, id, reservations);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             break;
                         }
                         case 6: {
@@ -73,6 +88,11 @@ int main() {
                     switch (suboption) {
                         case 1: {
                             showReservations(reservations, cameras);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             cout << "\n\n";
                             break;
                         }
@@ -102,6 +122,11 @@ int main() {
                             cin.ignore();
                             getline(cin, name);
                             searchReservation(reservations, name, cameras);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             break;
                         }
                         case 6: {
@@ -117,6 +142,15 @@ int main() {
                 break;
             }
             case 3:{
+                suboption = 0;
+                while (suboption != 1){
+                    getReport(reservations, cameras);
+                    cout << "\nPress 1 to go back: ";
+                    cin >> suboption;
+                }
+                break;
+            }
+            case 4:{
                 cout << "\nHave a nice day!\n\n";
                 break;
             }

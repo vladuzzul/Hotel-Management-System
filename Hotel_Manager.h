@@ -278,7 +278,7 @@ void showReservations(const vector<Reservation> reservations, const vector<Camer
                 cout << "\t" << "Room type: " << camera.type << "\n";
                 double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
                 cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
-                return;
+                continue;
             }
         }
         showed = true;
@@ -361,6 +361,27 @@ void deleteReservation(vector<Reservation>& reservations, const string& reservat
         }
     }
     cout << "\n!! Reservation not found !!\n";
+}
+
+void getReport(const vector<Reservation>& reservations, const vector<Camera> cameras){
+    cout << "\n=== " << hotel_name << " Report ===\n\n";
+    double total = 0;
+    int occupied = 0;
+    for (const auto& reservation : reservations) {
+        for (const auto& camera : cameras){
+            if (reservation.room_number == camera.id) {
+                double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
+                total += payment;
+            }
+        }
+    }
+    for (const auto& camera : cameras){
+        if (camera.availability > 0) occupied +=1;
+    }
+    cout << "Total income: " << total << "$\n";
+    cout << "Occupied rooms: " << occupied << endl;
+    cout << "Available rooms: " << cameras.size() - occupied << '\n';
+    cout << "Number of reservations: " << reservations.size() << '\n';
 }
 
 #endif //HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H

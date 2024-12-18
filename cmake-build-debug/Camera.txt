@@ -1,5 +1,5 @@
 1,199.99,Penthouse,1
-2,29.99,One person,0
+2,29.99,One person,1
 3,249.99,Luxury suite,0
 4,9.99,Paper Bed,0
 5,49.99,Standard double bed,0
