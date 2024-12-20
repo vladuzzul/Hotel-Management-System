@@ -54,6 +54,7 @@ int main() {
                         case 3: {
                             cout << "\033[H\033[J\n";
                             addCamera(cameras);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 4: {
@@ -62,6 +63,7 @@ int main() {
                             cout << "Enter room id: ";
                             cin >> id;
                             deleteCamera(cameras, id);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 5: {
@@ -70,6 +72,7 @@ int main() {
                             cout << "Enter camera id: ";
                             cin >> id;
                             modifyCameraPrice(cameras, id);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 6: {
@@ -116,12 +119,12 @@ int main() {
                                 cin >> suboption;
                             }
                             cout << "\033[H\033[J\n";
-                            cout << "\n\n";
                             break;
                         }
                         case 2: {
                             cout << "\033[H\033[J\n";
                             addReservation(reservations, cameras);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 3: {
@@ -131,6 +134,7 @@ int main() {
                             cin.ignore();
                             getline(cin, name);
                             deleteReservation(reservations, name, cameras);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 4: {
@@ -140,6 +144,7 @@ int main() {
                             cin.ignore();
                             getline(cin, name);
                             modifyReservation(reservations, cameras, name);
+                            cout << "\033[H\033[J\n";
                             break;
                         }
                         case 5: {
