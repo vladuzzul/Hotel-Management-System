@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <sstream>
 #include <cmath>
+#include <ctime>
 using namespace std;
 
 string hotel_name {"Your hotel's"};
@@ -25,15 +26,35 @@ int dateToTimestamp(const std::string& date) {
     if (ss.fail()) {
         cout << "Invalid date provided\n";
     }
-    return
-
-    mktime(&tm);
+    return mktime(&tm);
 }
 
 int daysDifference(const std::string& date1, const std::string& date2) {
     int timestamp1 = dateToTimestamp(date1);
     int timestamp2 = dateToTimestamp(date2);
     return abs((timestamp2 - timestamp1) / (60 * 60 * 24));
+}
+
+string reservationStatus(const string& check_in, const string& check_out) {
+    time_t now = time(NULL);
+    int checkInTimestamp = dateToTimestamp(check_in);
+    int checkOutTimestamp = dateToTimestamp(check_out);
+
+    if (checkInTimestamp == -1 || checkOutTimestamp == -1) {
+        return "Invalid date format.";
+    }
+
+    if (now < checkInTimestamp) {
+        int daysUntilCheckIn = (checkInTimestamp - now) / (60 * 60 * 24);
+        return "Days until check-in: " + to_string(daysUntilCheckIn) + " days";
+    }
+    else if (now >= checkInTimestamp && now <= checkOutTimestamp) {
+        return "Reservation in progress.";
+    }
+    else {
+        int daysSinceCheckOut = (now - checkOutTimestamp) / (60 * 60 * 24);
+        return "Days since check-out: " + to_string(daysSinceCheckOut) + " days";
+    }
 }
 
 bool equal_strings(const string& lhs, const string& rhs){
@@ -294,6 +315,7 @@ void showReservations(const vector<Reservation>& reservations, const vector<Came
                 continue;
             }
         }
+        cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
         showed = true;
     }
     if (!showed) cout << "\n!! No reservations registered yet !!\n";
@@ -349,6 +371,7 @@ void searchReservation(const vector<Reservation>& reservations, const string& re
                     cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
                 }
             }
+            cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
             cout << "\n";
             showed = true;
             nr++;
