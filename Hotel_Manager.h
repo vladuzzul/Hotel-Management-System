@@ -377,7 +377,7 @@ void searchReservation(const vector<Reservation>& reservations, const string& re
             nr++;
         }
     }
-    if (!showed) cout << "\n!! Registration not found !!\n";
+    if (!showed) cout << "\n!! Reservation not found !!\n";
     if (nr > 1) cout << reservation_name << " has " << nr << " reservations\n";
 }
 
@@ -419,6 +419,35 @@ void getReport(const vector<Reservation>& reservations, const vector<Camera>& ca
     cout << "Occupied rooms: " << occupied << endl;
     cout << "Available rooms: " << cameras.size() - occupied << '\n';
     cout << "Number of reservations: " << reservations.size() << '\n';
+}
+
+void generateBill(const vector<Reservation>& reservations,const vector<Camera>& cameras, const string& name){
+    ofstream bout("Bill.txt", ios::trunc);
+    bool showed = false;
+    for (auto i = reservations.begin(); i != reservations.end(); i++){
+        if (equal_strings(i -> client_name, name)){
+            bout << "\nThank you for choosing " << hotel_name << "!\n";
+            bout << "\nBill for " << i -> client_name << "\n";
+            bout << "\tBooked room type: ";
+            double price, payment;
+            for (const auto& camera : cameras){
+                if (i ->room_number == camera.id) {
+                    bout << camera.type << "\n";
+                    price = camera.price;
+                    payment = daysDifference(i->check_in, i->check_out) * camera.price;
+                }
+            }
+            bout << "\tNights checked in: " << daysDifference(i -> check_in, i -> check_out) << "\n";
+            bout << "\tPrice per night: " << price << "$\n";
+            bout << "\nTotal payment: " << payment << "$\n";
+            bout << "\n\nPlease leave us a review on google!";
+            bout << "\nHope you had a great time!\n";
+
+            cout << "\nBill successfully generated!\n";
+            return;
+        }
+    }
+    cout << "\n!! Reservation not found !!\n";
 }
 
 #endif //HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H

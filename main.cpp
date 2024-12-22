@@ -104,9 +104,9 @@ int main() {
             case 2: {
                 suboption = 0;
                 cout << "\033[H\033[J\n";
-                while (suboption != 6) {
+                while (suboption != 7) {
                     cout << "\n === " << hotel_name << " Reservation management === \n\n";
-                    cout << "1: See all reservations\n2: Add reservation\n3: Delete reservation\n4: Modify reservation\n5: Search reservation\n6: Go back\n\n\nOption: ";
+                    cout << "1: See all reservations\n2: Add reservation\n3: Delete reservation\n4: Modify reservation\n5: Search reservation\n6: Generate bill\n7: Go back\n\n\nOption: ";
                     cin >> suboption;
                     cout << "\033[H\033[J\n";
                     switch (suboption) {
@@ -163,6 +163,16 @@ int main() {
                             break;
                         }
                         case 6: {
+                            cout << "\033[H\033[J\n";
+                            string name;
+                            cout << "Enter reservation name: ";
+                            cin.ignore();
+                            getline(cin, name);
+                            generateBill(reservations, cameras, name);
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        case 7: {
                             cout << "\033[H\033[J\n";
                             break;
                         }
