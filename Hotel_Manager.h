@@ -35,6 +35,12 @@ int daysDifference(const std::string& date1, const std::string& date2) {
     return abs((timestamp2 - timestamp1) / (60 * 60 * 24));
 }
 
+int daysDifference2(const std::string& date1, const std::string& date2) {
+    int timestamp1 = dateToTimestamp(date1);
+    int timestamp2 = dateToTimestamp(date2);
+    return (timestamp2 - timestamp1) / (60 * 60 * 24);
+}
+
 string reservationStatus(const string& check_in, const string& check_out) {
     time_t now = time(NULL);
     int checkInTimestamp = dateToTimestamp(check_in);
@@ -91,6 +97,14 @@ public:
     string check_out;
     int room_number;
 };
+
+bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const string& check_in, const string& check_out){
+    for(const auto& reservation : reservations)
+        if (reservation.room_number == roomNum)
+            if (check_in < reservation.check_out && check_out > reservation.check_in)
+                return true;
+    return false;
+}
 
 void initialiseCamera(vector<Camera>& cameras) {
     ifstream camin("Camera.txt");
@@ -284,10 +298,15 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras){
     cout << "Enter reservation id: "; cin >> reservation.id;
     cin.ignore();
     cout << "Enter client's name: "; getline(cin, reservation.client_name);
+    et:
     cout << "Enter client's room number: "; cin >> reservation.room_number;
     cin.ignore();
     cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
     cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
+    if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out)){
+        cout << "\n!! Reservation overbooked on the same room !!\n\n";
+        goto et;
+    }
     for (auto& camera : cameras){
         if (reservation.room_number == camera.id){
             camera.availability += 1;
