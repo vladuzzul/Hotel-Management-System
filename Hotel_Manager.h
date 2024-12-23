@@ -35,12 +35,6 @@ int daysDifference(const std::string& date1, const std::string& date2) {
     return abs((timestamp2 - timestamp1) / (60 * 60 * 24));
 }
 
-int daysDifference2(const std::string& date1, const std::string& date2) {
-    int timestamp1 = dateToTimestamp(date1);
-    int timestamp2 = dateToTimestamp(date2);
-    return (timestamp2 - timestamp1) / (60 * 60 * 24);
-}
-
 string reservationStatus(const string& check_in, const string& check_out) {
     time_t now = time(NULL);
     int checkInTimestamp = dateToTimestamp(check_in);
