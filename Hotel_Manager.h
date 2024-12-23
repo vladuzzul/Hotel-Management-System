@@ -423,27 +423,27 @@ void getReport(const vector<Reservation>& reservations, const vector<Camera>& ca
 
 void generateBill(const vector<Reservation>& reservations,const vector<Camera>& cameras, const string& name){
     ofstream bout("Bill.txt", ios::trunc);
-    bool showed = false;
-    for (auto i = reservations.begin(); i != reservations.end(); i++){
-        if (equal_strings(i -> client_name, name)){
+    for (const auto & reservation : reservations){
+        if (equal_strings(reservation.client_name, name)){
             bout << "\nThank you for choosing " << hotel_name << "!\n";
-            bout << "\nBill for " << i -> client_name << "\n";
+            bout << "\nBill for " << reservation.client_name << "\n";
             bout << "\tBooked room type: ";
             double price, payment;
             for (const auto& camera : cameras){
-                if (i ->room_number == camera.id) {
+                if (reservation.room_number == camera.id) {
                     bout << camera.type << "\n";
                     price = camera.price;
-                    payment = daysDifference(i->check_in, i->check_out) * camera.price;
+                    payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
                 }
             }
-            bout << "\tNights checked in: " << daysDifference(i -> check_in, i -> check_out) << "\n";
+            bout << "\tNights checked in: " << daysDifference(reservation.check_in, reservation.check_out) << "\n";
             bout << "\tPrice per night: " << price << "$\n";
             bout << "\nTotal payment: " << payment << "$\n";
-            bout << "\n\nPlease leave us a review on google!";
+            bout << "\n\nPlease leave us a review on Google!";
             bout << "\nHope you had a great time!\n";
 
             cout << "\nBill successfully generated!\n";
+            bout.close();
             return;
         }
     }
