@@ -4,76 +4,17 @@
 
 #ifndef HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H
 #define HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H
-#include <string>
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <iomanip>
-#include <sstream>
-#include <cmath>
-#include <ctime>
+#include "Functions.h"
 using namespace std;
 
 string hotel_name {"Your hotel's"};
 
 ofstream camout("Camera.txt", ios::app);
 ofstream rout("Reservation.txt", ios::app);
-
-int dateToTimestamp(const std::string& date) {
-    tm tm = {};
-    istringstream ss(date);
-    ss >> get_time(&tm, "%d.%m.%Y");
-    if (ss.fail()) {
-        cout << "Invalid date provided\n";
-    }
-    return mktime(&tm);
-}
-
-int daysDifference(const std::string& date1, const std::string& date2) {
-    int timestamp1 = dateToTimestamp(date1);
-    int timestamp2 = dateToTimestamp(date2);
-    return abs((timestamp2 - timestamp1) / (60 * 60 * 24));
-}
-
-string reservationStatus(const string& check_in, const string& check_out) {
-    time_t now = time(NULL);
-    int checkInTimestamp = dateToTimestamp(check_in);
-    int checkOutTimestamp = dateToTimestamp(check_out);
-
-    if (checkInTimestamp == -1 || checkOutTimestamp == -1) {
-        return "Invalid date format.";
-    }
-
-    if (now < checkInTimestamp) {
-        int daysUntilCheckIn = (checkInTimestamp - now) / (60 * 60 * 24);
-        return "Days until check-in: " + to_string(daysUntilCheckIn) + " days";
-    }
-    else if (now >= checkInTimestamp && now <= checkOutTimestamp) {
-        return "Reservation in progress.";
-    }
-    else {
-        int daysSinceCheckOut = (now - checkOutTimestamp) / (60 * 60 * 24);
-        return "Days since check-out: " + to_string(daysSinceCheckOut) + " days";
-    }
-}
-
-bool equal_strings(const string& lhs, const string& rhs){
-    if (lhs.size() != rhs.size()){
-        return false;
-    }
-
-    auto lit = cbegin(lhs);
-    auto rit = cbegin(rhs);
-
-    while (lit != cend(lhs) and rit != cend(rhs)){
-        if (toupper(*lit) != toupper(*rit)){
-            return false;
-        }
-        ++lit;
-        ++rit;
-    }
-    return true;
-}
 
 class Camera{
 public:
@@ -95,8 +36,13 @@ public:
 bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const string& check_in, const string& check_out){
     for(const auto& reservation : reservations)
         if (reservation.room_number == roomNum)
-            if (check_in < reservation.check_out && check_out > reservation.check_in)
+            if (check_in < reservation.check_out && check_out > reservation.check_in){
+                cout << "\nOverbooked with reservation number " << reservation.id << "\n";
+                cout << "\tReservation name: " << reservation.client_name << "\n";
+                cout << "\tCheck in date: " << reservation.check_in << "\n";
+                cout << "\tCheck out date: " << reservation.check_out << "\n\n";
                 return true;
+            }
     return false;
 }
 
@@ -297,10 +243,8 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras){
     cin.ignore();
     cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
     cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
-    if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out)){
-        cout << "\n!! Reservation overbooked on the same room !!\n\n";
+    if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out))
         goto et;
-    }
     for (auto& camera : cameras){
         if (reservation.room_number == camera.id){
             camera.availability += 1;
