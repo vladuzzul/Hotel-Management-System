@@ -5,19 +5,21 @@ using namespace std;
 int main() {
     vector<Camera> cameras;
     vector<Reservation> reservations;
+    vector<Profile> profiles;
 
     initialiseCamera(cameras);
     initialiseReservation(reservations);
+    initialiseProfile(profiles);
 
     int option = 0;
     int suboption = 0;
 
     cout << "\033[H\033[J\n";
 
-    while (option != 4) {
+    while (option != 5) {
 
         cout << "\n=== " << hotel_name << " Room and Reservation manager === \n\n";
-        cout << "1: Room management\n2: Reservation management\n3: Get full report\n4. Leave\n\n\nOption: ";
+        cout << "1: Room management\n2: Reservation management\n3: Profile management\n4: Get full report\n5. Leave\n\n\nOption: ";
         cin >> option;
         cout << "\033[H\033[J\n";
         switch (option) {
@@ -123,7 +125,7 @@ int main() {
                         }
                         case 2: {
                             cout << "\033[H\033[J\n";
-                            addReservation(reservations, cameras);
+                            addReservation(reservations, cameras, profiles);
                             cout << "\033[H\033[J\n";
                             break;
                         }
@@ -186,6 +188,69 @@ int main() {
                 break;
             }
             case 3:{
+                suboption = 0;
+                cout << "\033[H\033[J\n";
+                while (suboption != 5) {
+                    cout << "\n === " << hotel_name << " Client Profile management === \n\n";
+                    cout << "1: See all profiles\n2: Search reservation\n3: Modify reservation\n4: Delete reservation\n5: Go back\n\n\nOption: ";
+                    cin >> suboption;
+                    cout << "\033[H\033[J\n";
+                    switch (suboption) {
+                        case 1: {
+                            cout << "\033[H\033[J\n";
+                            showProfiles(profiles);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        case 2: {
+                            cout << "\033[H\033[J\n";
+                            string name;
+                            cout << "Enter profile name: ";
+                            cin.ignore();
+                            getline(cin, name);
+                            searchProfile(profiles, name);
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        case 3: {
+                            cout << "\033[H\033[J\n";
+                            string name;
+                            cout << "Enter profile name: ";
+                            cin.ignore();
+                            getline(cin, name);
+                            modifyProfile(profiles, name);
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        case 4: {
+                            cout << "\033[H\033[J\n";
+                            string name;
+                            cout << "Enter profile name: ";
+                            cin.ignore();
+                            getline(cin, name);
+                            deleteProfile(profiles, name);
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        case 5: {
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        default: {
+                            cout << "\033[H\033[J\n";
+                            cout << "!! Invalid option !!\n";
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            case 4:{
                 cout << "\033[H\033[J\n";
                 suboption = 0;
                 while (suboption != 1){
@@ -196,7 +261,7 @@ int main() {
                 }
                 break;
             }
-            case 4:{
+            case 5:{
                 cout << "\033[H\033[J\n";
                 cout << "\nHave a nice day!\n\n";
                 break;

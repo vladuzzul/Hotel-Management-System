@@ -15,6 +15,7 @@ string hotel_name {"Your hotel's"};
 
 ofstream camout("Camera.txt", ios::app);
 ofstream rout("Reservation.txt", ios::app);
+ofstream pout("Client_profile.txt", ios::app);
 
 class Camera{
 public:
@@ -33,6 +34,15 @@ public:
     int room_number;
 };
 
+// Introducing a new feature to see all
+// the clients that booked a reservation
+
+class Profile{
+public:
+    string name;
+    int visits = 0;
+};
+
 bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const string& check_in, const string& check_out){
     for(const auto& reservation : reservations)
         if (reservation.room_number == roomNum)
@@ -44,6 +54,81 @@ bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const s
                 return true;
             }
     return false;
+}
+
+void initialiseProfile(vector<Profile>& profiles){
+    ifstream pin("Client_profile.txt");
+    if(!pin.is_open()){
+        cout << "No profile file found. Starting with a empty profile database. \n";
+        return;
+    }
+
+    string line;
+    while(getline(pin, line)){
+        size_t pos;
+        Profile profile;
+
+        pos = line.find(',');
+        profile.name = line.substr(0, pos);
+        line.erase(0, pos+1);
+
+        profile.visits += stoi(line);
+        profiles.push_back(profile);
+    }
+}
+
+void saveProfile(const vector<Profile>& profiles){
+    pout.close();
+    pout.open("Client_profile.txt", ios::trunc);
+
+    for (const auto& profile : profiles)
+        pout << profile.name << "," << profile.visits << '\n';
+}
+
+void showProfiles(const vector<Profile>& profiles){
+    bool showed = false;
+    for (auto& profile : profiles){
+        cout << "Profile " << profile.name << " has a number of " << profile.visits << " reservations.\n";
+        showed = true;
+    }
+    if (!showed)
+        cout << "\n!! No profiles registered yet !!\n";
+}
+
+void modifyProfile(vector<Profile>& profiles, const string& name){
+    bool showed = false;
+    for (auto& profile : profiles){
+        if (equal_strings(profile.name, name)){
+            cout << "Current number of visits: " << profile.visits << '\n';
+            cout << "Enter number of visits: "; cin >> profile.visits;
+        }
+        showed = true;
+    }
+    if (!showed)
+        cout << "\n!! No profiles registered yet !!\n";
+}
+
+void searchProfile(const vector<Profile>& profiles, const string& name){
+    bool showed = false;
+    for (const auto& profile : profiles) {
+        if (equal_strings(profile.name, name)){
+            cout << "Profile " << profile.name << " has a number of " << profile.visits << " reservations.\n";
+        }
+        showed = true;
+    }
+    if (!showed) cout << "\n!! Room not found !!\n";
+}
+
+void deleteProfile(vector<Profile>& profiles, const string& name){
+    for (auto it = profiles.begin(); it != profiles.end(); ++it) {
+        if (equal_strings(it -> name, name)){
+            profiles.erase(it);
+            saveProfile(profiles);
+            cout << "\nProfile successfully deleted!\n";
+            return;
+        }
+    }
+    cout << "\n!! Profile not found !!\n";
 }
 
 void initialiseCamera(vector<Camera>& cameras) {
@@ -233,7 +318,7 @@ void saveReservation(const vector<Reservation>& reservations) {
     rout.close();
 }
 
-void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras){
+void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, vector<Profile>& profiles){
     Reservation reservation;
     cout << "Enter reservation id: "; cin >> reservation.id;
     cin.ignore();
@@ -251,8 +336,27 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras){
             saveCamera(cameras);
         }
     }
+
+    bool showed = false;
+    for (auto& profile : profiles)
+        if (equal_strings(reservation.client_name, profile.name)){
+            profile.visits += 1;
+            showed = true;
+        }
+
+    if (!showed){
+        // Add profile
+        Profile profile;
+        profile.name = reservation.client_name;
+        profile.visits++;
+        profiles.push_back(profile);
+        saveProfile(profiles);
+        cout << "\n!! New profile created !!\n";
+    }
+
     reservations.push_back(reservation);
     saveReservation(reservations);
+
     cout << "\n!! Reservation successfully added !!\n";
 }
 
