@@ -214,6 +214,11 @@ int main() {
                             cin.ignore();
                             getline(cin, name);
                             searchProfile(profiles, name);
+                            suboption = 0;
+                            while (suboption != 1){
+                                cout << "\nPress 1 to go back: ";
+                                cin >> suboption;
+                            }
                             cout << "\033[H\033[J\n";
                             break;
                         }
