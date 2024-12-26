@@ -34,7 +34,7 @@ Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Manageme
 ### Prerequisites
 
 Ensure the following are installed on your system:
-- **C++ Compiler**: Supports C++11 or later (e.g., GCC).
+- **C++ Compiler**: Supports C++17 or later (e.g., GCC).
 - **CMake** (optional): For streamlined building.
 - **Standard Library**: Includes `<iostream>`, `<vector>`, `<string>`, `<sstream>`, `<iomanip>`.
 
@@ -47,7 +47,7 @@ Ensure the following are installed on your system:
    ```
 2. Compile the project:
    ```bash
-   g++ main.cpp -o hotel_manager
+   g++ -std=c++17 main.cpp -o hotel_manager
    ```
 3. Run the application:
    ```bash
