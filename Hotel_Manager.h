@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 #include "Functions.h"
 using namespace std;
 
