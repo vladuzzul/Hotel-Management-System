@@ -83,14 +83,6 @@ Use numeric inputs to select menu options.
 
 ---
 
-## 📊 Future Enhancements
-
-- **Graphical Interface**: Develop a GUI for a modern and interactive experience.
-- **Persistent Storage**: Integrate a database backend for data retention.
-- **Enhanced Error Handling**: Improve input validation and exception handling.
-
----
-
 ## ❤️ Contributing
 
 Contributions are always welcome! Feel free to:
