@@ -563,6 +563,20 @@ void generateBill(const vector<Reservation>& reservations,const vector<Camera>& 
 
             cout << "\nBill successfully generated!\n";
             bout.close();
+            string filename = {"bill.txt"};
+            #if defined(_WIN32) || defined(_WIN64)
+                string command = "notepad.exe " + filename;
+                system(command.c_str());
+            #elif defined(__linux__)
+                string command = "gedit " + filename;
+                system(command.c_str());
+            #elif defined(__APPLE__) && defined(__MACH__)
+                string command = "open " + filename;
+                system(command.c_str());
+            #else
+                cerr << "Operating system not supported." << std::endl;
+                return 1;
+            #endif
             return;
         }
     }
