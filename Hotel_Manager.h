@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <cmath>
 #include "Functions.h"
+#include <cstdlib>
 using namespace std;
 
 string hotel_name {"Your hotel's"};
