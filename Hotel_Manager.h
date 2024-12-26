@@ -32,6 +32,7 @@ public:
     string check_in;
     string check_out;
     int room_number;
+    double payment;
 };
 
 // Introducing a new feature to see all
@@ -83,12 +84,13 @@ void saveProfile(const vector<Profile>& profiles){
 
     for (const auto& profile : profiles)
         pout << profile.name << "," << profile.visits << '\n';
+    pout.close();
 }
 
 void showProfiles(const vector<Profile>& profiles){
     bool showed = false;
     for (auto& profile : profiles){
-        cout << "Profile " << profile.name << " has a number of " << profile.visits << " reservations.\n";
+        cout << "Client " << profile.name << " has a number of " << profile.visits << " reservations.\n\n";
         showed = true;
     }
     if (!showed)
@@ -99,20 +101,23 @@ void modifyProfile(vector<Profile>& profiles, const string& name){
     bool showed = false;
     for (auto& profile : profiles){
         if (equal_strings(profile.name, name)){
-            cout << "Current number of visits: " << profile.visits << '\n';
-            cout << "Enter number of visits: "; cin >> profile.visits;
+            cout << "\nCurrent number of visits: " << profile.visits << '\n';
+            cout << "Enter new number of visits: "; cin >> profile.visits;
+            saveProfile(profiles);
+            cout << "\n!! Profile successfully modified !!\n";
+            showed = true;
         }
-        showed = true;
     }
     if (!showed)
-        cout << "\n!! No profiles registered yet !!\n";
+        cout << "\n!! Profile not found !!\n";
+
 }
 
 void searchProfile(const vector<Profile>& profiles, const string& name){
     bool showed = false;
     for (const auto& profile : profiles) {
         if (equal_strings(profile.name, name)){
-            cout << "Profile " << profile.name << " has a number of " << profile.visits << " reservations.\n";
+            cout << "\nClient " << profile.name << " has a number of " << profile.visits << " reservations.\n";
         }
         showed = true;
     }
@@ -198,7 +203,7 @@ void showCameras(const vector<Camera>& cameras,const vector<Reservation>& reserv
             cout << "not available\n";
             for (const auto &reservation: reservations) {
                 if (reservation.room_number == camera.id) {
-                    cout << "\tRoom occupied by: " << reservation.client_name << "\n";
+                    cout << "\tRoom booked by: " << reservation.client_name << "\n";
                 }
             }
         }
@@ -234,7 +239,7 @@ void searchCamera(const vector<Camera>& cameras, const int& camera_id, const vec
                 cout << "not available\n";
                 for (const auto& reservation : reservations){
                     if (reservation.room_number == camera.id){
-                        cout << "\tRoom occupied by: " << reservation.client_name << "\n";
+                        cout << "\tRoom booked by: " << reservation.client_name << "\n";
                     }
                 }
             }
@@ -298,7 +303,11 @@ void initialiseReservation(vector<Reservation>& reservations) {
         reservation.check_out = line.substr(0, pos);
         line.erase(0, pos + 1);
 
-        reservation.room_number = stoi(line);
+        pos = line.find(',');
+        reservation.room_number = stoi(line.substr(0, pos));
+        line.erase(0, pos + 1);
+
+        reservation.payment = stod(line);
 
         reservations.push_back(reservation);
     }
@@ -313,7 +322,8 @@ void saveReservation(const vector<Reservation>& reservations) {
                << reservation.client_name << ","
                << reservation.check_in << ","
                << reservation.check_out << ","
-               << reservation.room_number << "\n";
+               << reservation.room_number << ","
+               << fixed << setprecision(2) << reservation.payment << "\n";
     }
     rout.close();
 }
@@ -332,6 +342,7 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, 
         goto et;
     for (auto& camera : cameras){
         if (reservation.room_number == camera.id){
+            reservation.payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
             camera.availability += 1;
             saveCamera(cameras);
         }
@@ -340,7 +351,16 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, 
     bool showed = false;
     for (auto& profile : profiles)
         if (equal_strings(reservation.client_name, profile.name)){
-            profile.visits += 1;
+            profile.visits++;
+            if (profile.visits <= 3){
+                reservation.payment -= reservation.payment * 0.05; // 5% discount
+            }
+            else if (profile.visits > 3 && profile.visits <= 5){
+                reservation.payment -= reservation.payment * 0.1; // 10% discount
+            }
+            else if (profile.visits > 5){
+                reservation.payment -= reservation.payment * 0.15; // 15% discount
+            }
             showed = true;
         }
 
@@ -350,10 +370,12 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, 
         profile.name = reservation.client_name;
         profile.visits++;
         profiles.push_back(profile);
-        saveProfile(profiles);
         cout << "\n!! New profile created !!\n";
     }
 
+    reservation.payment = round(reservation.payment * 100) / 100;
+
+    saveProfile(profiles);
     reservations.push_back(reservation);
     saveReservation(reservations);
 
@@ -371,23 +393,23 @@ void showReservations(const vector<Reservation>& reservations, const vector<Came
         for (const auto& camera : cameras){
             if (reservation.room_number == camera.id) {
                 cout << "\t" << "Room type: " << camera.type << "\n";
-                double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
-                cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
                 continue;
             }
         }
+        cout << "\t" << "Reservation cost of stay: " << reservation.payment << "$\n";
         cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
         showed = true;
     }
     if (!showed) cout << "\n!! No reservations registered yet !!\n";
 }
 
-void modifyReservation(vector<Reservation>& reservations, vector<Camera>& cameras, const string& reservation_name) {
+void modifyReservation(vector<Reservation>& reservations, vector<Camera>& cameras, const string& reservation_name, const vector<Profile>& profiles) {
     for (auto& reservation : reservations) {
         if (equal_strings(reservation.client_name, reservation_name)) {
             for (auto& camera : cameras) {
                 if (reservation.room_number == camera.id) {
                     camera.availability = 0;
+                    reservation.payment = 0;
                 }
             }
 
@@ -402,6 +424,19 @@ void modifyReservation(vector<Reservation>& reservations, vector<Camera>& camera
 
             for (auto& camera : cameras) {
                 if (reservation.room_number == camera.id) {
+                    reservation.payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
+                    for (auto& profile : profiles)
+                        if (equal_strings(reservation.client_name, profile.name)){
+                            if (profile.visits <= 3 && profile.visits > 1){
+                                reservation.payment -= reservation.payment * 0.05; // 5% discount
+                            }
+                            else if (profile.visits > 3 && profile.visits <= 5){
+                                reservation.payment -= reservation.payment * 0.1; // 10% discount
+                            }
+                            else if (profile.visits > 5){
+                                reservation.payment -= reservation.payment * 0.15; // 15% discount
+                            }
+                        }
                     camera.availability += 1;
                 }
             }
@@ -428,10 +463,9 @@ void searchReservation(const vector<Reservation>& reservations, const string& re
             for (const auto& camera : cameras){
                 if (reservation.room_number == camera.id) {
                     cout << "\t" << "Room type: " << camera.type << "\n";
-                    double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
-                    cout << "\t" << "Reservation cost of stay: " << payment << "$\n";
                 }
             }
+            cout << "\t" << "Reservation cost of stay: " << reservation.payment << "$\n";
             cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
             cout << "\n";
             showed = true;
@@ -467,8 +501,7 @@ void getReport(const vector<Reservation>& reservations, const vector<Camera>& ca
     for (const auto& reservation : reservations) {
         for (const auto& camera : cameras){
             if (reservation.room_number == camera.id) {
-                double payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
-                total += payment;
+                total += reservation.payment;
             }
         }
     }
@@ -482,24 +515,49 @@ void getReport(const vector<Reservation>& reservations, const vector<Camera>& ca
     cout << "Number of reservations: " << reservations.size() << '\n';
 }
 
-void generateBill(const vector<Reservation>& reservations,const vector<Camera>& cameras, const string& name){
+void generateBill(const vector<Reservation>& reservations,const vector<Camera>& cameras, const string& name, const vector<Profile>& profiles){
     ofstream bout("Bill.txt", ios::trunc);
     for (const auto & reservation : reservations){
         if (equal_strings(reservation.client_name, name)){
             bout << "\nThank you for choosing " << hotel_name << "!\n";
             bout << "\nBill for " << reservation.client_name << "\n";
             bout << "\tBooked room type: ";
-            double price, payment;
+            double price;
             for (const auto& camera : cameras){
                 if (reservation.room_number == camera.id) {
                     bout << camera.type << "\n";
                     price = camera.price;
-                    payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
                 }
             }
             bout << "\tNights checked in: " << daysDifference(reservation.check_in, reservation.check_out) << "\n";
-            bout << "\tPrice per night: " << price << "$\n";
-            bout << "\nTotal payment: " << payment << "$\n";
+            bout << "\tPrice per night: " << price << "$\n\n";
+            bout << "Reservation period: " << reservation.check_in << " - " << reservation.check_out << "\n\n";
+
+            for (auto& profile : profiles)
+                if (equal_strings(reservation.client_name, profile.name)){
+                    if (profile.visits <= 3 && profile.visits > 1){
+                        switch(profile.visits){
+                            case 2:{
+                                bout << "You got a 5% discount for your 2nd visit!\n";
+                                break;
+                            }
+                            case 3:{
+                                bout << "You got a 5% discount for your 3rd visit!\n";
+                                break;
+                            }
+                        }
+                    }
+                    else if (profile.visits > 3 && profile.visits <= 5){
+                        bout << "You got a 10% discount for your " << profile.visits << "th visit!\n";
+                        break;
+                    }
+                    else if (profile.visits > 5){
+                        bout << "You got a 15% discount for your " << profile.visits << "th visit!\n";
+                        break;
+                    }
+                }
+
+            bout << "Total payment: " << reservation.payment << "$\n";
             bout << "\n\nPlease leave us a review on Google!";
             bout << "\nHope you had a great time!\n";
 

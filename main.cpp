@@ -145,7 +145,7 @@ int main() {
                             cout << "Enter reservation name: ";
                             cin.ignore();
                             getline(cin, name);
-                            modifyReservation(reservations, cameras, name);
+                            modifyReservation(reservations, cameras, name, profiles);
                             cout << "\033[H\033[J\n";
                             break;
                         }
@@ -170,7 +170,7 @@ int main() {
                             cout << "Enter reservation name: ";
                             cin.ignore();
                             getline(cin, name);
-                            generateBill(reservations, cameras, name);
+                            generateBill(reservations, cameras, name, profiles);
                             cout << "\033[H\033[J\n";
                             break;
                         }
