@@ -73,13 +73,13 @@ Use numeric inputs to select menu options.
 ## 🔎 Code Highlights
 
 ### Modular Design
-- Core functionality is encapsulated in separate headers (`Functions.h`, `Hotel_Manager.h`), ensuring a clean and maintainable structure.
+- Core functionality is encapsulated in separate headers (`Functions.h`, `Classes.h`, `Reservation.h`, `Profile.h`, `Camera.h`), ensuring a clean and maintainable structure.
 
 ### Date Utilities
 - Features robust functions for date conversions, timestamp calculations, and date comparisons.
 
 ### User-Friendly Interface
-- Incorporates dynamic screen-clearing commands like `\033[H\033[J` to provide a seamless navigation experience.
+- Incorporates dynamic screen-clearing commands to provide a seamless navigation experience.
 
 ---
 

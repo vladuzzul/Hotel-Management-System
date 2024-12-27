@@ -1,50 +1,21 @@
 //
-// Created by Vlad Cozma on 13.12.2024.
+// Created by Vlad Cozma on 27.12.2024.
 //
 
-#ifndef HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H
-#define HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H
+#ifndef HOTEL_ROOM_REZERVATION_MANAGER_RESERVATION_H
+#define HOTEL_ROOM_REZERVATION_MANAGER_RESERVATION_H
+#include "Classes.h"
+#include "Profile.h"
+#include <fstream>
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <iomanip>
 #include <cmath>
-#include "Functions.h"
 #include <cstdlib>
 using namespace std;
 
 string hotel_name {"Your hotel's"};
 
-ofstream camout("Camera.txt", ios::app);
 ofstream rout("Reservation.txt", ios::app);
-ofstream pout("Client_profile.txt", ios::app);
-
-class Camera{
-public:
-    int id;
-    double price;
-    string type;
-    int availability = 0;
-};
-
-class Reservation{
-public:
-    int id;
-    string client_name;
-    string check_in;
-    string check_out;
-    int room_number;
-    double payment;
-};
-
-// Introducing a new feature to see all
-// the clients that booked a reservation
-
-class Profile{
-public:
-    string name;
-    int visits = 0;
-};
 
 bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const string& check_in, const string& check_out){
     for(const auto& reservation : reservations)
@@ -57,224 +28,6 @@ bool checkOverBook(const vector<Reservation>& reservations, int roomNum, const s
                 return true;
             }
     return false;
-}
-
-void initialiseProfile(vector<Profile>& profiles){
-    ifstream pin("Client_profile.txt");
-    if(!pin.is_open()){
-        cout << "No profile file found. Starting with a empty profile database. \n";
-        return;
-    }
-
-    string line;
-    while(getline(pin, line)){
-        size_t pos;
-        Profile profile;
-
-        pos = line.find(',');
-        profile.name = line.substr(0, pos);
-        line.erase(0, pos+1);
-
-        profile.visits += stoi(line);
-        profiles.push_back(profile);
-    }
-}
-
-void saveProfile(const vector<Profile>& profiles){
-    pout.close();
-    pout.open("Client_profile.txt", ios::trunc);
-
-    for (const auto& profile : profiles)
-        pout << profile.name << "," << profile.visits << '\n';
-    pout.close();
-}
-
-void showProfiles(const vector<Profile>& profiles){
-    bool showed = false;
-    for (auto& profile : profiles){
-        cout << "Client " << profile.name << " has a number of " << profile.visits << " reservations.\n\n";
-        showed = true;
-    }
-    if (!showed)
-        cout << "\n!! No profiles registered yet !!\n";
-}
-
-void modifyProfile(vector<Profile>& profiles, const string& name){
-    bool showed = false;
-    for (auto& profile : profiles){
-        if (equal_strings(profile.name, name)){
-            cout << "\nCurrent number of visits: " << profile.visits << '\n';
-            cout << "Enter new number of visits: "; cin >> profile.visits;
-            saveProfile(profiles);
-            cout << "\n!! Profile successfully modified !!\n";
-            showed = true;
-        }
-    }
-    if (!showed)
-        cout << "\n!! Profile not found !!\n";
-
-}
-
-void searchProfile(const vector<Profile>& profiles, const string& name){
-    bool showed = false;
-    for (const auto& profile : profiles) {
-        if (equal_strings(profile.name, name)){
-            cout << "\nClient " << profile.name << " has a number of " << profile.visits << " reservations.\n";
-        }
-        showed = true;
-    }
-    if (!showed) cout << "\n!! Room not found !!\n";
-}
-
-void deleteProfile(vector<Profile>& profiles, const string& name){
-    for (auto it = profiles.begin(); it != profiles.end(); ++it) {
-        if (equal_strings(it -> name, name)){
-            profiles.erase(it);
-            saveProfile(profiles);
-            cout << "\nProfile successfully deleted!\n";
-            return;
-        }
-    }
-    cout << "\n!! Profile not found !!\n";
-}
-
-void initialiseCamera(vector<Camera>& cameras) {
-    ifstream camin("Camera.txt");
-    if (!camin.is_open()) {
-        cout << "No inventory file found. Starting with an empty inventory.\n";
-        return;
-    }
-
-    string line;
-    while (getline(camin, line)) {
-        size_t pos;
-        Camera camera;
-
-        pos = line.find(',');
-        camera.id = stoi(line.substr(0, pos));
-        line.erase(0, pos + 1);
-
-        pos = line.find(',');
-        camera.price = stod(line.substr(0, pos));
-        line.erase(0, pos + 1);
-
-        pos = line.find(',');
-        camera.type = line.substr(0, pos);
-        line.erase(0, pos + 1);
-
-        camera.availability += stoi(line);
-
-        cameras.push_back(camera);
-    }
-    camin.close();
-}
-
-void saveCamera(const vector<Camera>& cameras) {
-    camout.close();
-    camout.open("Camera.txt", ios::trunc);
-    for (const auto& camera : cameras) {
-        camout << camera.id << ","
-               << fixed << setprecision(2) << camera.price << ","
-               << camera.type << ","
-               << camera.availability << "\n";
-    }
-    camout.close();
-}
-
-void addCamera(vector<Camera>& cameras){
-    Camera camera;
-    cout << "Enter room id: "; cin >> camera.id;
-    cout << "Enter room price: "; cin >> camera.price;
-    cin.ignore();
-    cout << "Enter room type: "; getline(cin, camera.type);
-    camera.availability = 0;
-    cameras.push_back(camera);
-    saveCamera(cameras);
-    cout << "\n!! Room successfully added !!\n";
-}
-
-void showCameras(const vector<Camera>& cameras,const vector<Reservation>& reservations) {
-    bool showed = false;
-    for (const auto &camera: cameras) {
-        cout << "\nRoom number " << camera.id << ":\n"
-             << "\t" << "Room price per night: " << camera.price << "$\n"
-             << "\t" << "Room type: " << camera.type << "\n"
-             << "\t" << "Room availability: ";
-        if (camera.availability == 0) cout << "available\n";
-        else {
-            cout << "not available\n";
-            for (const auto &reservation: reservations) {
-                if (reservation.room_number == camera.id) {
-                    cout << "\tRoom booked by: " << reservation.client_name << "\n";
-                }
-            }
-        }
-        showed = true;
-    }
-    if (!showed) cout << "\n!! No rooms registered yet !!\n";
-}
-
-void showAvailableCameras(const vector<Camera>& cameras){
-    bool showed = false;
-    for (const auto& camera : cameras) {
-        if (camera.availability == 0){
-            cout << "\nRoom number " << camera.id << ":\n"
-                 << "\t" << "Room price per night: " << camera.price << "$\n"
-                 << "\t" << "Room type: " << camera.type << "\n";
-            showed = true;
-        }
-
-    }
-    if (!showed) cout << "No rooms available\n";
-}
-
-void searchCamera(const vector<Camera>& cameras, const int& camera_id, const vector<Reservation>& reservations){
-    bool showed = false;
-    for (const auto& camera : cameras) {
-        if (camera.id == camera_id) {
-            cout << "\nRoom number " << camera.id << ":\n"
-                 << "\t" << "Room price per night: " << camera.price << "$\n"
-                 << "\t" << "Room type: " << camera.type << "\n"
-                 << "\t" << "Room availability: ";
-            if (camera.availability == 0) cout << "available\n";
-            else {
-                cout << "not available\n";
-                for (const auto& reservation : reservations){
-                    if (reservation.room_number == camera.id){
-                        cout << "\tRoom booked by: " << reservation.client_name << "\n";
-                    }
-                }
-            }
-            cout << "\n";
-            showed = true;
-        }
-    }
-    if (!showed) cout << "\n!! Room not found !!\n";
-}
-
-void deleteCamera(vector<Camera> &cameras, const int& camera_id){
-    for (auto it = cameras.begin(); it != cameras.end(); ++it) {
-        if (it -> id == camera_id) {
-            cameras.erase(it);
-            saveCamera(cameras);
-            cout << "\nRoom successfully deleted!\n";
-            return;
-        }
-    }
-    cout << "\n!! Room not found !!\n";
-}
-
-void modifyCameraPrice(vector<Camera>& cameras,const int& id){
-    for (auto& camera : cameras){
-        if (camera.id == id){
-            camera.price = 0;
-            cout << "Enter new price: "; cin >> camera.price;
-            saveCamera(cameras);
-            cout << "\n!! Room price successfully modified !!\n";
-            return;
-        }
-    }
-    cout << "\n!! Room not found !!\n";
 }
 
 void initialiseReservation(vector<Reservation>& reservations) {
@@ -321,11 +74,11 @@ void saveReservation(const vector<Reservation>& reservations) {
     rout.open("Reservation.txt", ios::trunc);
     for (const auto& reservation : reservations) {
         rout << reservation.id << ","
-               << reservation.client_name << ","
-               << reservation.check_in << ","
-               << reservation.check_out << ","
-               << reservation.room_number << ","
-               << fixed << setprecision(2) << reservation.payment << "\n";
+             << reservation.client_name << ","
+             << reservation.check_in << ","
+             << reservation.check_out << ","
+             << reservation.room_number << ","
+             << fixed << setprecision(2) << reservation.payment << "\n";
     }
     rout.close();
 }
@@ -566,23 +319,23 @@ void generateBill(const vector<Reservation>& reservations,const vector<Camera>& 
             cout << "\nBill successfully generated!\n";
             bout.close();
             string filename = {"bill.txt"};
-            #if defined(_WIN32) || defined(_WIN64)
-                string command = "notepad.exe " + filename;
+#if defined(_WIN32) || defined(_WIN64)
+            string command = "notepad.exe " + filename;
                 system(command.c_str());
-            #elif defined(__linux__)
-                string command = "gedit " + filename;
+#elif defined(__linux__)
+            string command = "gedit " + filename;
                 system(command.c_str());
-            #elif defined(__APPLE__) && defined(__MACH__)
-                string command = "open " + filename;
-                system(command.c_str());
-            #else
-                cerr << "Operating system not supported." << std::endl;
+#elif defined(__APPLE__) && defined(__MACH__)
+            string command = "open " + filename;
+            system(command.c_str());
+#else
+            cerr << "Operating system not supported." << std::endl;
                 return 1;
-            #endif
+#endif
             return;
         }
     }
     cout << "\n!! Reservation not found !!\n";
 }
 
-#endif //HOTEL_ROOM_REZERVATION_MANAGER_HOTEL_MANAGER_H
+#endif //HOTEL_ROOM_REZERVATION_MANAGER_RESERVATION_H

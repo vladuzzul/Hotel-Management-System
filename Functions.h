@@ -5,6 +5,7 @@
 #ifndef HOTEL_ROOM_REZERVATION_MANAGER_FUNCTIONS_H
 #define HOTEL_ROOM_REZERVATION_MANAGER_FUNCTIONS_H
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 int dateToTimestamp(const std::string& date) {

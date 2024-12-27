@@ -1,5 +1,8 @@
 #include <iostream>
-#include "Hotel_Manager.h"
+#include "Camera.h"
+#include "Reservation.h"
+#include "Profile.h"
+#include "Classes.h"
 using namespace std;
 
 int main() {
