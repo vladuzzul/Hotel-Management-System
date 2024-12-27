@@ -53,7 +53,7 @@ Ensure the following are installed on your system:
    ```bash
    ./Hotel_Room_Rezervation_Manager
    ```
-The program already comes with data in files, remove the data by hand using the program or you can empty all the files to get rid of the data (`Camera.txt`, `Reservation.txt`, `Profile.txt`)
+ - The program already comes with data in files, remove the data by hand using the program or you can empty all the files to get rid of the data (`Camera.txt`, `Reservation.txt`, `Profile.txt`)
 
 ---
 
