@@ -45,14 +45,15 @@ Ensure the following are installed on your system:
    git clone https://github.com/vladuzzul/Hotel-Management-System.git
    cd Hotel-Management-System
    ```
-2. Compile the project:
+2. Open the cmake folder:
    ```bash
-   g++ -std=c++17 main.cpp -o hotel_manager
+   ./cmake-build-debug
    ```
 3. Run the application:
    ```bash
-   ./hotel_manager
+   ./Hotel_Room_Rezervation_Manager
    ```
+ - The program already comes with data in files, remove the data by hand using the program or you can empty all the files to get rid of the data (`Camera.txt`, `Reservation.txt`, `Profile.txt`)
 
 ---
 
