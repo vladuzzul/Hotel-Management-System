@@ -46,6 +46,22 @@ string reservationStatus(const string& check_in, const string& check_out) {
     }
 }
 
+double ReadUntilInt(const string& text){
+    double num;
+    while (true) {
+        cout << text;
+        cin >> num;
+        if (cin.fail()) {
+            cout << "Please enter a valid number!\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return num;
+        }
+    }
+}
+
 bool equal_strings(const string& lhs, const string& rhs){
     if (lhs.size() != rhs.size()){
         return false;
@@ -56,6 +72,7 @@ bool equal_strings(const string& lhs, const string& rhs){
 
     while (lit != cend(lhs) and rit != cend(rhs)){
         if (toupper(*lit) != toupper(*rit)){
+            cout << "Nope\n";
             return false;
         }
         ++lit;

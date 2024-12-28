@@ -5,6 +5,7 @@
 #ifndef HOTEL_ROOM_REZERVATION_MANAGER_PROFILE_H
 #define HOTEL_ROOM_REZERVATION_MANAGER_PROFILE_H
 #include "Classes.h"
+#include "Functions.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -58,7 +59,7 @@ void modifyProfile(vector<Profile>& profiles, const string& name){
     for (auto& profile : profiles){
         if (equal_strings(profile.name, name)){
             cout << "\nCurrent number of visits: " << profile.visits << '\n';
-            cout << "Enter new number of visits: "; cin >> profile.visits;
+            profile.visits = ReadUntilInt("Enter new number of visits: ");
             saveProfile(profiles);
             cout << "\n!! Profile successfully modified !!\n";
             showed = true;

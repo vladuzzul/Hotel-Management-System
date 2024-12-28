@@ -59,9 +59,8 @@ void saveCamera(const vector<Camera>& cameras) {
 
 void addCamera(vector<Camera>& cameras){
     Camera camera;
-    cout << "Enter room id: "; cin >> camera.id;
-    cout << "Enter room price: "; cin >> camera.price;
-    cin.ignore();
+    camera.id = ReadUntilInt("Enter room id: ");
+    camera.price = ReadUntilInt("Enter room price: ");
     cout << "Enter room type: "; getline(cin, camera.type);
     camera.availability = 0;
     cameras.push_back(camera);
@@ -144,7 +143,7 @@ void modifyCameraPrice(vector<Camera>& cameras,const int& id){
     for (auto& camera : cameras){
         if (camera.id == id){
             camera.price = 0;
-            cout << "Enter new price: "; cin >> camera.price;
+            camera.price = ReadUntilInt("Enter new price: ");
             saveCamera(cameras);
             cout << "\n!! Room price successfully modified !!\n";
             return;

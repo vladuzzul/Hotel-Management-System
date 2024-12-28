@@ -85,12 +85,10 @@ void saveReservation(const vector<Reservation>& reservations) {
 
 void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, vector<Profile>& profiles){
     Reservation reservation;
-    cout << "Enter reservation id: "; cin >> reservation.id;
-    cin.ignore();
+    reservation.id = ReadUntilInt("Enter reservation id: ");
     cout << "Enter client's name: "; getline(cin, reservation.client_name);
     et:
-    cout << "Enter client's room number: "; cin >> reservation.room_number;
-    cin.ignore();
+    reservation.room_number = ReadUntilInt("Enter client's room number: ");
     cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
     cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
     if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out))
@@ -172,8 +170,7 @@ void modifyReservation(vector<Reservation>& reservations, vector<Camera>& camera
             reservation.check_in = "";
             reservation.check_out = "";
 
-            cout << "Enter client's room number: "; cin >> reservation.room_number;
-            cin.ignore();
+            reservation.room_number = ReadUntilInt("Enter client's room number: ");
             cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
             cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
 
