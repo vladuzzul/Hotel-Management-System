@@ -72,7 +72,6 @@ bool equal_strings(const string& lhs, const string& rhs){
 
     while (lit != cend(lhs) and rit != cend(rhs)){
         if (toupper(*lit) != toupper(*rit)){
-            cout << "Nope\n";
             return false;
         }
         ++lit;
