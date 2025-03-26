@@ -1,4 +1,4 @@
 John Doe,4
-Alice Brown,2
+Alice Brown,3
 Will Smith,6
-Justin Bieber,1
+Justin Bieber,2

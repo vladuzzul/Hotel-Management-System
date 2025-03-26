@@ -184,7 +184,7 @@ int main() {
                 cout << "\033[H\033[J\n";
                 while (suboption != 5) {
                     cout << "\n === " << hotel_name << " Client Profile management === \n\n";
-                    cout << "1: See all profiles\n2: Search reservation\n3: Modify reservation\n4: Delete reservation\n5: Go back\n\n\n";
+                    cout << "1: See all profiles\n2: Search profile\n3: Modify profile\n4: Delete profile\n5: Go back\n\n\n";
                     suboption = ReadUntilInt("Option: ");
                     cout << "\033[H\033[J\n";
                     switch (suboption) {

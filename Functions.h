@@ -6,6 +6,7 @@
 #define HOTEL_ROOM_REZERVATION_MANAGER_FUNCTIONS_H
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 using namespace std;
 
 int dateToTimestamp(const std::string& date) {
@@ -67,10 +68,10 @@ bool equal_strings(const string& lhs, const string& rhs){
         return false;
     }
 
-    auto lit = cbegin(lhs);
-    auto rit = cbegin(rhs);
+    auto lit = begin(lhs);
+    auto rit = begin(rhs);
 
-    while (lit != cend(lhs) and rit != cend(rhs)){
+    while (lit != end(lhs) and rit != end(rhs)){
         if (toupper(*lit) != toupper(*rit)){
             return false;
         }

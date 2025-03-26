@@ -6,6 +6,7 @@
 #define HOTEL_ROOM_REZERVATION_MANAGER_RESERVATION_H
 #include "Classes.h"
 #include "Profile.h"
+#include "Camera.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -13,7 +14,7 @@
 #include <cstdlib>
 using namespace std;
 
-string hotel_name {"Your hotel's"};
+string hotel_name = "Your hotel's";
 
 ofstream rout("Reservation.txt", ios::app);
 
@@ -315,7 +316,7 @@ void generateBill(const vector<Reservation>& reservations,const vector<Camera>& 
 
             cout << "\nBill successfully generated!\n";
             bout.close();
-            string filename = {"bill.txt"};
+            string filename = "bill.txt";
 #if defined(_WIN32) || defined(_WIN64)
             string command = "notepad.exe " + filename;
                 system(command.c_str());
