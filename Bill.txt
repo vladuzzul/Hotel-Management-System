@@ -1,14 +1,14 @@
 
 Thank you for choosing Your hotel's!
 
-Bill for Vlad Cozma
-	Booked room type: Standard Double Bed
-	Nights checked in: 6
-	Price per night: 29.99$
+Bill for John Doe
+	Booked room type: Double Bed Ocean View
+	Nights checked in: 3
+	Price per night: 34.99$
 
-Reservation period: 01.03.2025 - 07.03.2025
+Reservation period: 28.03.2025 - 31.03.2025
 
-Total payment: 179.94$
+Total payment: 104.97$
 
 
 Please leave us a review on Google!

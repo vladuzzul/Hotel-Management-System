@@ -21,26 +21,43 @@ int main() {
     cout << "\033[H\033[J\n";
 
     while (option != 5) {
-
-        cout << "\n=== " << hotel_name << " Room and Reservation manager === \n\n";
-        cout << "1: Room management\n2: Reservation management\n3: Profile management\n4: Get full report\n5. Leave\n\n\n";
-        option = ReadUntilInt("Option: ");
+        cout << "========================================\n";
+        cout << "\033[1;34m" << hotel_name << " Room and Reservation Manager\033[0m\n";
+        cout << "========================================\n\n";
+        cout << "\033[1;90m1:\033[0m \033[1;37mRoom management\033[0m\n";
+        cout << "\033[1;90m2:\033[0m \033[1;37mReservation management\033[0m\n";
+        cout << "\033[1;90m3:\033[0m \033[1;37mProfile management\033[0m\n";
+        cout << "\033[1;90m4:\033[0m \033[1;37mGet full report\033[0m\n";
+        cout << "\033[1;90m5:\033[0m \033[1;37mLeave\033[0m\n\n";
+        cout << "========================================\n";
+        option = ReadUntilInt("\033[1;32mOption: \033[0m");
         cout << "\033[H\033[J\n";
+
         switch (option) {
             case 1: {
                 suboption = 0;
                 while (suboption != 7) {
-                    cout << "\n=== " << hotel_name << " Room management === \n\n";
-                    cout << "1: See all rooms\n2: See available rooms\n3: Add room\n4: Delete room\n5: Modify room price\n6: Search room\n7: Go back\n\n\n";
-                    suboption = ReadUntilInt("Option: ");
+                    cout << "========================================\n";
+                    cout << "\033[1;34m" << hotel_name << " Room Management\033[0m\n";
+                    cout << "========================================\n\n";
+                    cout << "\033[1;90m1:\033[0m \033[1;37mSee all rooms\033[0m\n";
+                    cout << "\033[1;90m2:\033[0m \033[1;37mSee available rooms\033[0m\n";
+                    cout << "\033[1;90m3:\033[0m \033[1;37mAdd room\033[0m\n";
+                    cout << "\033[1;90m4:\033[0m \033[1;37mDelete room\033[0m\n";
+                    cout << "\033[1;90m5:\033[0m \033[1;37mModify room price\033[0m\n";
+                    cout << "\033[1;90m6:\033[0m \033[1;37mSearch room\033[0m\n";
+                    cout << "\033[1;90m7:\033[0m \033[1;37mGo back\033[0m\n\n";
+                    cout << "========================================\n";
+                    suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
                     cout << "\033[H\033[J\n";
+
                     switch (suboption) {
                         case 1: {
                             cout << "\033[H\033[J\n";
                             showCameras(cameras, reservations);
                             suboption = 0;
-                            while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                            while (suboption != 1) {
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -49,8 +66,8 @@ int main() {
                             cout << "\033[H\033[J\n";
                             showAvailableCameras(cameras);
                             suboption = 0;
-                            while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                            while (suboption != 1) {
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -64,7 +81,7 @@ int main() {
                         case 4: {
                             cout << "\033[H\033[J\n";
                             int id;
-                            id = ReadUntilInt("Enter room id: ");
+                            id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
                             deleteCamera(cameras, id);
                             cout << "\033[H\033[J\n";
                             break;
@@ -72,7 +89,7 @@ int main() {
                         case 5: {
                             cout << "\033[H\033[J\n";
                             int id;
-                            id = ReadUntilInt("Enter room id: ");
+                            id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
                             modifyCameraPrice(cameras, id);
                             cout << "\033[H\033[J\n";
                             break;
@@ -80,11 +97,11 @@ int main() {
                         case 6: {
                             cout << "\033[H\033[J\n";
                             int id;
-                            id = ReadUntilInt("Enter room id: ");
+                            id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
                             searchCamera(cameras, id, reservations);
                             suboption = 0;
-                            while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                            while (suboption != 1) {
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -95,7 +112,7 @@ int main() {
                         }
                         default: {
                             cout << "\033[H\033[J\n";
-                            cout << "!! Invalid option !!\n";
+                            cout << "\033[1;91m!! Invalid option !!\033[0m\n";
                         }
                     }
                 }
@@ -105,9 +122,18 @@ int main() {
                 suboption = 0;
                 cout << "\033[H\033[J\n";
                 while (suboption != 7) {
-                    cout << "\n === " << hotel_name << " Reservation management === \n\n";
-                    cout << "1: See all reservations\n2: Add reservation\n3: Delete reservation\n4: Modify reservation\n5: Search reservation\n6: Generate bill\n7: Go back\n\n\n";
-                    suboption = ReadUntilInt("Option: ");
+                    cout << "========================================\n";
+                    cout << "\033[1;34m" << hotel_name << " Reservation Management\033[0m\n";
+                    cout << "========================================\n\n";
+                    cout << "\033[1;90m1:\033[0m \033[1;37mSee all reservations\033[0m\n";
+                    cout << "\033[1;90m2:\033[0m \033[1;37mAdd reservation\033[0m\n";
+                    cout << "\033[1;90m3:\033[0m \033[1;37mDelete reservation\033[0m\n";
+                    cout << "\033[1;90m4:\033[0m \033[1;37mModify reservation\033[0m\n";
+                    cout << "\033[1;90m5:\033[0m \033[1;37mSearch reservation\033[0m\n";
+                    cout << "\033[1;90m6:\033[0m \033[1;37mGenerate bill\033[0m\n";
+                    cout << "\033[1;90m7:\033[0m \033[1;37mGo back\033[0m\n\n";
+                    cout << "========================================\n";
+                    suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
                     cout << "\033[H\033[J\n";
                     switch (suboption) {
                         case 1: {
@@ -115,7 +141,7 @@ int main() {
                             showReservations(reservations, cameras);
                             suboption = 0;
                             while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -129,7 +155,7 @@ int main() {
                         case 3: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter reservation name: ";
+                            cout << "\033[1;37mEnter reservation name: \033[0m";
                             getline(cin, name);
                             deleteReservation(reservations, name, cameras);
                             cout << "\033[H\033[J\n";
@@ -138,7 +164,7 @@ int main() {
                         case 4: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter reservation name: ";
+                            cout << "\033[1;37mEnter reservation name: \033[0m";
                             getline(cin, name);
                             modifyReservation(reservations, cameras, name, profiles);
                             cout << "\033[H\033[J\n";
@@ -147,12 +173,12 @@ int main() {
                         case 5: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter reservation name: ";
+                            cout << "\033[1;37mEnter reservation name: \033[0m";
                             getline(cin, name);
                             searchReservation(reservations, name, cameras);
                             suboption = 0;
                             while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -160,7 +186,7 @@ int main() {
                         case 6: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter reservation name: ";
+                            cout << "\033[1;37mEnter reservation name: \033[0m";
                             getline(cin, name);
                             generateBill(reservations, cameras, name, profiles);
                             cout << "\033[H\033[J\n";
@@ -172,7 +198,7 @@ int main() {
                         }
                         default: {
                             cout << "\033[H\033[J\n";
-                            cout << "!! Invalid option !!\n";
+                            cout << "\033[1;31m!! Invalid option !!\033[0m\n";
                             break;
                         }
                     }
@@ -183,9 +209,16 @@ int main() {
                 suboption = 0;
                 cout << "\033[H\033[J\n";
                 while (suboption != 5) {
-                    cout << "\n === " << hotel_name << " Client Profile management === \n\n";
-                    cout << "1: See all profiles\n2: Search profile\n3: Modify profile\n4: Delete profile\n5: Go back\n\n\n";
-                    suboption = ReadUntilInt("Option: ");
+                    cout << "========================================\n";
+                    cout << "\033[1;34m" << hotel_name << " Client Profile Management\033[0m\n";
+                    cout << "========================================\n\n";
+                    cout << "\033[1;90m1:\033[0m \033[1;37mSee all profiles\033[0m\n";
+                    cout << "\033[1;90m2:\033[0m \033[1;37mSearch profile\033[0m\n";
+                    cout << "\033[1;90m3:\033[0m \033[1;37mModify profile\033[0m\n";
+                    cout << "\033[1;90m4:\033[0m \033[1;37mDelete profile\033[0m\n";
+                    cout << "\033[1;90m5:\033[0m \033[1;37mGo back\033[0m\n\n";
+                    cout << "========================================\n";
+                    suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
                     cout << "\033[H\033[J\n";
                     switch (suboption) {
                         case 1: {
@@ -193,7 +226,7 @@ int main() {
                             showProfiles(profiles);
                             suboption = 0;
                             while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -201,12 +234,12 @@ int main() {
                         case 2: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter profile name: ";
+                            cout << "\033[1;37mEnter profile name: \033[0m";
                             getline(cin, name);
                             searchProfile(profiles, name);
                             suboption = 0;
                             while (suboption != 1){
-                                suboption = ReadUntilInt("\nPress 1 to go back: ");
+                                suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                             }
                             cout << "\033[H\033[J\n";
                             break;
@@ -214,7 +247,7 @@ int main() {
                         case 3: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter profile name: ";
+                            cout << "\033[1;37mEnter profile name: \033[0m";
                             getline(cin, name);
                             modifyProfile(profiles, name);
                             cout << "\033[H\033[J\n";
@@ -223,7 +256,7 @@ int main() {
                         case 4: {
                             cout << "\033[H\033[J\n";
                             string name;
-                            cout << "Enter profile name: ";
+                            cout << "\033[1;37mEnter profile name: \033[0m";
                             getline(cin, name);
                             deleteProfile(profiles, name);
                             cout << "\033[H\033[J\n";
@@ -235,7 +268,7 @@ int main() {
                         }
                         default: {
                             cout << "\033[H\033[J\n";
-                            cout << "!! Invalid option !!\n";
+                            cout << "\033[1;31m!! Invalid option !!\033[0m\n";
                             break;
                         }
                     }
@@ -247,19 +280,19 @@ int main() {
                 suboption = 0;
                 while (suboption != 1){
                     getReport(reservations, cameras);
-                    suboption = ReadUntilInt("\nPress 1 to go back: ");
+                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                     cout << "\033[H\033[J\n";
                 }
                 break;
             }
             case 5:{
                 cout << "\033[H\033[J\n";
-                cout << "\nHave a nice day!\n\n";
+                cout << "\n\033[1;32mHave a nice day!\033[0m\n\n";
                 break;
             }
             default:{
                 cout << "\033[H\033[J\n";
-                cout << "!! Invalid option !!\n";
+                cout << "\033[1;31m!! Invalid option !!\033[0m\n";
                 break;
             }
         }

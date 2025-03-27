@@ -86,12 +86,12 @@ void saveReservation(const vector<Reservation>& reservations) {
 
 void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, vector<Profile>& profiles){
     Reservation reservation;
-    reservation.id = ReadUntilInt("Enter reservation id: ");
-    cout << "Enter client's name: "; getline(cin, reservation.client_name);
+    reservation.id = ReadUntilInt("\033[1;37mEnter reservation id: \033[0m");
+    cout << "\033[1;37mEnter client's name: "; getline(cin, reservation.client_name);
     et:
-    reservation.room_number = ReadUntilInt("Enter client's room number: ");
-    cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
-    cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
+    reservation.room_number = ReadUntilInt("\033[1;37mEnter client's room number: \033[0m");
+    cout << "\033[1;37mEnter check-in date (DD.MM.YYYY): \033[0m"; getline(cin, reservation.check_in);
+    cout << "\033[1;37mEnter check-out date (DD.MM.YYYY): \033[0m"; getline(cin, reservation.check_out);
     if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out))
         goto et;
     for (auto& camera : cameras){
@@ -139,22 +139,22 @@ void addReservation(vector<Reservation>& reservations, vector<Camera>& cameras, 
 void showReservations(const vector<Reservation>& reservations, const vector<Camera>& cameras){
     bool showed = false;
     for (const auto& reservation : reservations) {
-        cout << "\nReservation num " << reservation.id << ":\n"
-             << "\t" << "Client name: " << reservation.client_name << "\n"
-             << "\t" << "Client room number: " << reservation.room_number << "\n"
-             << "\t" << "Check-in date: " << reservation.check_in << "\n"
-             << "\t" << "Check-out date: " << reservation.check_out << "\n";
+        cout << "\n\033[1;34mReservation num " << reservation.id << ":\033[0m\n"
+             << "\t\033[1;90m" << "Client name:\033[0m \033[1;37m" << reservation.client_name << "\033[0m\n"
+             << "\t\033[1;90m" << "Client room number:\033[0m \033[1;37m" << reservation.room_number << "\033[0m\n"
+             << "\t\033[1;90m" << "Check-in date:\033[0m \033[1;37m" << reservation.check_in << "\033[0m\n"
+             << "\t\033[1;90m" << "Check-out date:\033[0m \033[1;37m" << reservation.check_out << "\033[0m\n";
         for (const auto& camera : cameras){
             if (reservation.room_number == camera.id) {
-                cout << "\t" << "Room type: " << camera.type << "\n";
+                cout << "\t" << "\033[1;90mRoom type:\033[0m \033[1;37m" << camera.type << "\033[0m\n";
                 continue;
             }
         }
-        cout << "\t" << "Reservation cost of stay: " << reservation.payment << "$\n";
+        cout << "\t" << "\033[1;90mReservation cost of stay:\033[0m \033[1;37m" << reservation.payment << "$\033[0m\n";
         cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
         showed = true;
     }
-    if (!showed) cout << "\n!! No reservations registered yet !!\n";
+    if (!showed) cout << "\n\033[1;31m!! No reservations registered yet !!\033[0m\n";
 }
 
 void modifyReservation(vector<Reservation>& reservations, vector<Camera>& cameras, const string& reservation_name, const vector<Profile>& profiles) {
@@ -171,9 +171,9 @@ void modifyReservation(vector<Reservation>& reservations, vector<Camera>& camera
             reservation.check_in = "";
             reservation.check_out = "";
 
-            reservation.room_number = ReadUntilInt("Enter client's room number: ");
-            cout << "Enter check-in date (DD.MM.YYYY): "; getline(cin, reservation.check_in);
-            cout << "Enter check-out date (DD.MM.YYYY): "; getline(cin, reservation.check_out);
+            reservation.room_number = ReadUntilInt("\033[1;37mEnter client's room number: \033[0m");
+            cout << "\033[1;37mEnter check-in date (DD.MM.YYYY): \033[0m"; getline(cin, reservation.check_in);
+            cout << "\033[1;37mEnter check-out date (DD.MM.YYYY): \033[0m"; getline(cin, reservation.check_out);
 
             for (auto& camera : cameras) {
                 if (reservation.room_number == camera.id) {
@@ -208,24 +208,24 @@ void searchReservation(const vector<Reservation>& reservations, const string& re
     bool showed = false;
     for (const auto& reservation : reservations) {
         if (equal_strings(reservation.client_name, reservation_name)) {
-            cout << "\nReservation num " << reservation.id << ":\n"
-                 << "\t" << "Client name: " << reservation.client_name << "\n"
-                 << "\t" << "Client room number: " << reservation.room_number << "\n"
-                 << "\t" << "Check-in date: " << reservation.check_in << "\n"
-                 << "\t" << "Check-out date: " << reservation.check_out << "\n";
+            cout << "\n\033[1;34mReservation num " << reservation.id << ":\033[0m\n"
+                 << "\t\033[1;90m" << "Client name:\033[0m \033[1;37m" << reservation.client_name << "\033[0m\n"
+                 << "\t\033[1;90m" << "Client room number:\033[0m \033[1;37m" << reservation.room_number << "\033[0m\n"
+                 << "\t\033[1;90m" << "Check-in date:\033[0m \033[1;37m" << reservation.check_in << "\033[0m\n"
+                 << "\t\033[1;90m" << "Check-out date:\033[0m \033[1;37m" << reservation.check_out << "\033[0m\n";
             for (const auto& camera : cameras){
                 if (reservation.room_number == camera.id) {
-                    cout << "\t" << "Room type: " << camera.type << "\n";
+                    cout << "\t" << "\033[1;90mRoom type:\033[0m \033[1;37m" << camera.type << "\033[0m\n";
+                    continue;
                 }
             }
-            cout << "\t" << "Reservation cost of stay: " << reservation.payment << "$\n";
+            cout << "\t" << "\033[1;90mReservation cost of stay:\033[0m \033[1;37m" << reservation.payment << "$\033[0m\n";
             cout << "\t" << reservationStatus(reservation.check_in, reservation.check_out) << "\n";
-            cout << "\n";
             showed = true;
             nr++;
         }
     }
-    if (!showed) cout << "\n!! Reservation not found !!\n";
+    if (!showed) cout << "\n\033[1;31m!! Reservation not found !!\033[0m\n";
     if (nr > 1) cout << reservation_name << " has " << nr << " reservations\n";
 }
 
@@ -247,25 +247,33 @@ void deleteReservation(vector<Reservation>& reservations, const string& reservat
     cout << "\n!! Reservation not found !!\n";
 }
 
-void getReport(const vector<Reservation>& reservations, const vector<Camera>& cameras){
-    cout << "\n=== " << hotel_name << " Report ===\n\n";
+void getReport(const vector<Reservation>& reservations, const vector<Camera>& cameras) {
     double total = 0;
     int occupied = 0;
+
+    // Calculate total income and occupied rooms
     for (const auto& reservation : reservations) {
-        for (const auto& camera : cameras){
+        for (const auto& camera : cameras) {
             if (reservation.room_number == camera.id) {
                 total += reservation.payment;
             }
         }
     }
-    for (const auto& camera : cameras){
-        if (camera.availability > 0) occupied +=1;
+    for (const auto& camera : cameras) {
+        if (camera.availability > 0) occupied += 1;
     }
-    cout << "Total income: " << total << "$\n";
-    cout << "Number of rooms: " << cameras.size() << '\n';
-    cout << "Occupied rooms: " << occupied << endl;
-    cout << "Available rooms: " << cameras.size() - occupied << '\n';
-    cout << "Number of reservations: " << reservations.size() << '\n';
+
+    // Display the report
+    cout << "\033[H\033[J\n"; // Clear the screen
+    cout << "========================================\n";
+    cout << "         \033[1;34m" << hotel_name << " Report Summary\033[0m\n";
+    cout << "========================================\n\n";
+    cout << "\033[1;90mTotal income:\033[1;37m " << total << "$\033[0m\n";
+    cout << "\033[1;90mNumber of rooms:\033[1;37m " << cameras.size() << "\033[0m\n";
+    cout << "\033[1;90mOccupied rooms:\033[1;37m " << occupied << "\033[0m\n";
+    cout << "\033[1;90mAvailable rooms:\033[1;37m " << cameras.size() - occupied << "\033[0m\n";
+    cout << "\033[1;90mNumber of reservations:\033[1;37m " << reservations.size() << "\033[0m\n";
+    cout << "\n========================================\n";
 }
 
 void generateBill(const vector<Reservation>& reservations,const vector<Camera>& cameras, const string& name, const vector<Profile>& profiles){

@@ -59,69 +59,69 @@ void saveCamera(const vector<Camera>& cameras) {
 
 void addCamera(vector<Camera>& cameras){
     Camera camera;
-    camera.id = ReadUntilInt("Enter room id: ");
-    camera.price = ReadUntilInt("Enter room price: ");
-    cout << "Enter room type: "; getline(cin, camera.type);
+    camera.id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
+    camera.price = ReadUntilInt("\033[1;37mEnter room price: \033[0m");
+    cout << "\033[1;37mEnter room type: \033[0m"; getline(cin, camera.type);
     camera.availability = 0;
     cameras.push_back(camera);
     saveCamera(cameras);
-    cout << "\n!! Room successfully added !!\n";
+    cout << "\n\033[1;37m!! Room successfully added !!\033[0m\n";
 }
 
 void showCameras(const vector<Camera>& cameras,const vector<Reservation>& reservations) {
     bool showed = false;
     for (const auto &camera: cameras) {
-        cout << "\nRoom number " << camera.id << ":\n"
-             << "\t" << "Room price per night: " << camera.price << "$\n"
-             << "\t" << "Room type: " << camera.type << "\n"
-             << "\t" << "Room availability: ";
-        if (camera.availability == 0) cout << "available\n";
+        cout << "\n\033[1;34mRoom number " << camera.id << ":\033[0m\n"
+            << "\t\033[1;90mRoom price per night:\033[0m \033[1;37m" << camera.price << "$\033[0m\n"
+             << "\t\033[1;90mRoom type:\033[0m \033[1;37m" << camera.type << "\033[0m\n"
+             << "\t\033[1;90mRoom availability:\033[0m \033[1;37m";
+        if (camera.availability == 0) cout << "available\033[0m\n";
         else {
-            cout << "not available\n";
+            cout << "not available\033[0m\n";
             for (const auto &reservation: reservations) {
                 if (reservation.room_number == camera.id) {
-                    cout << "\tRoom booked by: " << reservation.client_name << "\n";
+                    cout << "\033[0m\t\033[1;90mRoom booked by:\033[0m \033[1;37m" << reservation.client_name << "\033[0m\n";
                 }
             }
         }
         showed = true;
     }
-    if (!showed) cout << "\n!! No rooms registered yet !!\n";
+    if (!showed) cout << "\n\033[1;31m!! No rooms registered yet !!\033[0m\n";
 }
 
 void showAvailableCameras(const vector<Camera>& cameras){
     bool showed = false;
     for (const auto& camera : cameras) {
         if (camera.availability == 0){
-            cout << "\nRoom number " << camera.id << ":\n"
-                 << "\t" << "Room price per night: " << camera.price << "$\n"
-                 << "\t" << "Room type: " << camera.type << "\n";
+            cout << "\n\033[1;34mRoom number " << camera.id << ":\033[0m\n"
+            << "\t\033[1;90mRoom price per night:\033[0m \033[1;37m" << camera.price << "$\033[0m\n"
+             << "\t\033[1;90mRoom type:\033[0m \033[1;37m" << camera.type << "\033[0m\n";
             showed = true;
         }
 
     }
-    if (!showed) cout << "No rooms available\n";
+    if (!showed) cout << "\033[1;91m!! No rooms available !!\033[0m\n";
 }
 
 void searchCamera(const vector<Camera>& cameras, const int& camera_id, const vector<Reservation>& reservations){
     bool showed = false;
     for (const auto& camera : cameras) {
         if (camera.id == camera_id) {
-            cout << "\nRoom number " << camera.id << ":\n"
-                 << "\t" << "Room price per night: " << camera.price << "$\n"
-                 << "\t" << "Room type: " << camera.type << "\n"
-                 << "\t" << "Room availability: ";
-            if (camera.availability == 0) cout << "available\n";
-            else {
-                cout << "not available\n";
-                for (const auto& reservation : reservations){
-                    if (reservation.room_number == camera.id){
-                        cout << "\tRoom booked by: " << reservation.client_name << "\n";
-                    }
+            cout << "\n\033[1;34mRoom number " << camera.id << ":\033[0m\n"
+            << "\t\033[1;90mRoom price per night:\033[0m \033[1;37m" << camera.price << "$\033[0m\n"
+             << "\t\033[1;90mRoom type:\033[0m \033[1;37m" << camera.type << "\033[0m\n"
+             << "\t\033[1;90mRoom availability:\033[0m \033[1;37m";
+        if (camera.availability == 0) cout << "available\033[0m\n";
+        else {
+            cout << "not available\033[0m\n";
+            for (const auto &reservation: reservations) {
+                if (reservation.room_number == camera.id) {
+                    cout << "\033[0m\t\033[1;90mRoom booked by:\033[0m \033[1;37m" << reservation.client_name << "\033[0m\n";
                 }
             }
-            cout << "\n";
-            showed = true;
+        }
+        cout << "\n";
+        showed = true;
         }
     }
     if (!showed) cout << "\n!! Room not found !!\n";
@@ -143,7 +143,7 @@ void modifyCameraPrice(vector<Camera>& cameras,const int& id){
     for (auto& camera : cameras){
         if (camera.id == id){
             camera.price = 0;
-            camera.price = ReadUntilInt("Enter new price: ");
+            camera.price = ReadUntilInt("\033[1;37mEnter new price: \033[0m");
             saveCamera(cameras);
             cout << "\n!! Room price successfully modified !!\n";
             return;

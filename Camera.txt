@@ -1,1 +1,4 @@
-1,29.99,Standard Double Bed,1
+1,24.99,Standard Double Bed,0
+2,34.99,Double Bed Ocean View,0
+3,4.99,Paper bed,1
+4,79.99,Luxury Penthouse,0

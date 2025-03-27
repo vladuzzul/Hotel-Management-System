@@ -47,7 +47,7 @@ void saveProfile(const vector<Profile>& profiles){
 void showProfiles(const vector<Profile>& profiles){
     bool showed = false;
     for (auto& profile : profiles){
-        cout << "Client " << profile.name << " has a number of " << profile.visits << " reservations.\n\n";
+        cout << "\033[1;90mClient \033[1;37m" << profile.name << " \033[1;90mhas a number of \033[1;37m" << profile.visits << " reservations.\n\n\033[0m";
         showed = true;
     }
     if (!showed)
@@ -58,8 +58,8 @@ void modifyProfile(vector<Profile>& profiles, const string& name){
     bool showed = false;
     for (auto& profile : profiles){
         if (equal_strings(profile.name, name)){
-            cout << "\nCurrent number of visits: " << profile.visits << '\n';
-            profile.visits = ReadUntilInt("Enter new number of visits: ");
+            cout << "\n\033[1;90mCurrent number of visits: \033[1;37m" << profile.visits << "\n\033[0m\n";
+            profile.visits = ReadUntilInt("\033[1;37mEnter new number of visits: \033[0m");
             saveProfile(profiles);
             cout << "\n!! Profile successfully modified !!\n";
             showed = true;
@@ -74,8 +74,7 @@ void searchProfile(const vector<Profile>& profiles, const string& name){
     bool showed = false;
     for (const auto& profile : profiles) {
         if (equal_strings(profile.name, name)){
-            cout << "\nClient " << profile.name << " has a number of " << profile.visits << " reservations.\n";
-        }
+            cout << "\n\033[1;90mClient \033[1;37m" << profile.name << " \033[1;90mhas a number of \033[1;37m" << profile.visits << " reservations.\n\n\033[0m";        }
         showed = true;
     }
     if (!showed) cout << "\n!! Room not found !!\n";

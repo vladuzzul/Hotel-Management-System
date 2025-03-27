@@ -31,19 +31,19 @@ string reservationStatus(const string& check_in, const string& check_out) {
     int checkOutTimestamp = dateToTimestamp(check_out);
 
     if (checkInTimestamp == -1 || checkOutTimestamp == -1) {
-        return "Invalid date format.";
+        return "\033[1;31mInvalid date format.\033[0m";
     }
 
     if (now < checkInTimestamp) {
         int daysUntilCheckIn = (checkInTimestamp - now) / (60 * 60 * 24);
-        return "Days until check-in: " + to_string(daysUntilCheckIn) + " days";
+        return "\033[1;90mDays until check-in:\033[0m \033[1;37m" + to_string(daysUntilCheckIn) + " days\033[0m";
     }
     else if (now >= checkInTimestamp && now <= checkOutTimestamp) {
-        return "Reservation in progress.";
+        return "\033[1;37mReservation in progress.\033[0m";
     }
     else {
         int daysSinceCheckOut = (now - checkOutTimestamp) / (60 * 60 * 24);
-        return "Days since check-out: " + to_string(daysSinceCheckOut) + " days";
+        return "\033[1;90mDays since check-out:\033[0m \033[1;37m" + to_string(daysSinceCheckOut) + " days\033[0m";
     }
 }
 
