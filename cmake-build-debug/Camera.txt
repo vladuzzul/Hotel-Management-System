@@ -1,6 +1,0 @@
-1,199.99,Penthouse,0
-2,29.99,One person,0
-3,249.99,Luxury suite,0
-4,9.99,Paper Bed,1
-5,49.99,Standard double bed,0
-6,65.50,Double Bed Ocean View,1

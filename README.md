@@ -4,8 +4,6 @@
 
 The **Hotel Room and Reservation Manager** is a console-based application designed to simplify hotel operations. It provides tools for managing rooms, reservations, and client profiles, making it easier for hotel staff to handle day-to-day tasks efficiently.
 
-Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Management-System).
-
 ---
 
 ## ⚙️ Features
@@ -36,7 +34,9 @@ Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Manageme
 Ensure the following are installed on your system:
 - **C++ Compiler**: Supports C++17 or later (e.g., GCC, Clang, MSVC).
 - **CMake**: For streamlined building.
-- **Standard Library**: Includes `<iostream>`, `<vector>`, `<string>`, `<sstream>`, `<iomanip>`.
+- **Git**: For cloning the repository.
+
+---
 
 ### Installation Steps
 
@@ -63,8 +63,6 @@ Ensure the following are installed on your system:
    ./Hotel_Room_Rezervation_Manager
    ```
 
-- The program comes preloaded with data in the following files: `Camera.txt`, `Reservation.txt`, `Profile.txt`, `Settings.txt`. To reset the data, either use the program's interface or manually clear these files.
-
 ---
 
 ## 🔄 Usage
@@ -81,16 +79,28 @@ Use numeric inputs to select menu options.
 
 ---
 
-## 🔎 Code Highlights
+## 🧪 Testing
 
-### Modular Design
-- Core functionality is encapsulated in separate headers (`Functions.h`, `Classes.h`, `Reservation.h`, `Profile.h`, `Camera.h`, `Settings.h`), ensuring a clean and maintainable structure.
+This project includes unit tests for core functionality using the Google Test framework.
 
-### Date Utilities
-- Includes robust functions for date conversions, timestamp calculations, and date comparisons.
+### Running Tests
 
-### User-Friendly Interface
-- Incorporates dynamic screen-clearing commands for seamless navigation.
+1. Ensure the project is built with the test target:
+   ```bash
+   cmake -S . -B build
+   cmake --build build
+   ```
+
+2. Run the tests using `ctest`:
+   ```bash
+   cd build
+   ctest
+   ```
+
+3. View detailed test output:
+   ```bash
+   ctest --output-on-failure
+   ```
 
 ---
 
@@ -102,3 +112,18 @@ Contributions are welcome! To contribute:
 - Open issues for feature suggestions or bug reports.
 
 ---
+
+## 🛠️ Technologies Used
+
+- **Programming Language**: C++ (C++17 standard)
+- **Build System**: CMake
+- **Version Control**: Git
+- **Testing Framework**: [Google Test](https://github.com/google/googletest)
+
+---
+
+## 🎥 Demo
+
+Check out the live demo of the application in action:
+
+[![Demo Video](https://img.youtube.com/vi/your-demo-video-id/0.jpg)](https://www.youtube.com/watch?v=your-demo-video-id)

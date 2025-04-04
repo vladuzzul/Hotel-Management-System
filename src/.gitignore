@@ -1,0 +1,9 @@
+/build/
+*.exe
+*.out
+*.test
+*.log
+*.DS_Store
+*.swp
+Hotel_Room_Rezervation_Manager
+/tests/
