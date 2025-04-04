@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/vladcozma/Hotel-Management-System/build",
+  "command": "/usr/bin/clang++ -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.0 -o CMakeFiles/Hotel_Room_Rezervation_Manager.dir/main.cpp.o -c /Users/vladcozma/Hotel-Management-System/main.cpp",
+  "file": "/Users/vladcozma/Hotel-Management-System/main.cpp",
+  "output": "CMakeFiles/Hotel_Room_Rezervation_Manager.dir/main.cpp.o"
+}
+]

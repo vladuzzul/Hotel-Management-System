@@ -17,18 +17,26 @@ int main() {
 
     int option = 0;
     int suboption;
+    
+    LoadSettings();
 
     cout << "\033[H\033[J\n";
 
-    while (option != 5) {
+    while (option != 6) {
+        string title = hotel_name;
+        int totalWidth = 40-29; // -29 is for " Room and Reservation Manager"
+        int padding = (totalWidth - title.length()) / 2;
+        if (padding < 0) padding = 0;
+
         cout << "========================================\n";
-        cout << "\033[1;34m" << hotel_name << " Room and Reservation Manager\033[0m\n";
+        cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Room and Reservation Manager" << "\033[0m\n";
         cout << "========================================\n\n";
         cout << "\033[1;90m1:\033[0m \033[1;37mRoom management\033[0m\n";
         cout << "\033[1;90m2:\033[0m \033[1;37mReservation management\033[0m\n";
         cout << "\033[1;90m3:\033[0m \033[1;37mProfile management\033[0m\n";
         cout << "\033[1;90m4:\033[0m \033[1;37mGet full report\033[0m\n";
-        cout << "\033[1;90m5:\033[0m \033[1;37mLeave\033[0m\n\n";
+        cout << "\033[1;90m5:\033[0m \033[1;37mSettings\033[0m\n";
+        cout << "\033[1;90m6:\033[0m \033[1;37mLeave\033[0m\n\n";
         cout << "========================================\n";
         option = ReadUntilInt("\033[1;32mOption: \033[0m");
         cout << "\033[H\033[J\n";
@@ -37,8 +45,12 @@ int main() {
             case 1: {
                 suboption = 0;
                 while (suboption != 7) {
+                    int totalWidth = 40-16; // -16 is for " Room Management"
+                    int padding = (totalWidth - title.length()) / 2;
+                    if (padding < 0) padding = 0;
+
                     cout << "========================================\n";
-                    cout << "\033[1;34m" << hotel_name << " Room Management\033[0m\n";
+                    cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Room Management" << "\033[0m\n";
                     cout << "========================================\n\n";
                     cout << "\033[1;90m1:\033[0m \033[1;37mSee all rooms\033[0m\n";
                     cout << "\033[1;90m2:\033[0m \033[1;37mSee available rooms\033[0m\n";
@@ -122,8 +134,12 @@ int main() {
                 suboption = 0;
                 cout << "\033[H\033[J\n";
                 while (suboption != 7) {
+                    int totalWidth = 40-23; // -23 is for " Reservation Management"
+                    int padding = (totalWidth - title.length()) / 2;
+                    if (padding < 0) padding = 0;
+
                     cout << "========================================\n";
-                    cout << "\033[1;34m" << hotel_name << " Reservation Management\033[0m\n";
+                    cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Reservation Management\033[0m\n";
                     cout << "========================================\n\n";
                     cout << "\033[1;90m1:\033[0m \033[1;37mSee all reservations\033[0m\n";
                     cout << "\033[1;90m2:\033[0m \033[1;37mAdd reservation\033[0m\n";
@@ -209,8 +225,12 @@ int main() {
                 suboption = 0;
                 cout << "\033[H\033[J\n";
                 while (suboption != 5) {
+                    int totalWidth = 40-26; // -26 is for " Client Profile Management"
+                    int padding = (totalWidth - title.length()) / 2;
+                    if (padding < 0) padding = 0;
+
                     cout << "========================================\n";
-                    cout << "\033[1;34m" << hotel_name << " Client Profile Management\033[0m\n";
+                    cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Client Profile Management\033[0m\n";
                     cout << "========================================\n\n";
                     cout << "\033[1;90m1:\033[0m \033[1;37mSee all profiles\033[0m\n";
                     cout << "\033[1;90m2:\033[0m \033[1;37mSearch profile\033[0m\n";
@@ -286,6 +306,42 @@ int main() {
                 break;
             }
             case 5:{
+                cout << "\033[H\033[J\n";
+                suboption = 0;
+                while (suboption != 2) {
+                    cout << "\033[H\033[J\n";
+                    string title = hotel_name;
+                    int totalWidth = 40-9; // -9 is for " Settings"
+                    int padding = (totalWidth - title.length()) / 2;
+                    if (padding < 0) padding = 0;
+
+                    cout << "========================================\n";
+                    cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Settings\033[0m\n";
+                    cout << "========================================\n\n";
+                    cout << "\033[1;90m1:\033[0m \033[1;37mChange hotel name\033[0m\n";
+                    cout << "\033[1;90m2:\033[0m \033[1;37mGo back\033[0m\n\n";
+                    cout << "========================================\n";
+                    suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
+                    cout << "\033[H\033[J\n";
+                    switch (suboption) {
+                        case 1: {
+                            ChangeSettings(hotel_name);
+                            break;
+                        }
+                        case 2: {
+                            cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        default: {
+                            cout << "\033[H\033[J\n";
+                            cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            case 6:{
                 cout << "\033[H\033[J\n";
                 cout << "\n\033[1;32mHave a nice day!\033[0m\n\n";
                 break;

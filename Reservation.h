@@ -7,14 +7,13 @@
 #include "Classes.h"
 #include "Profile.h"
 #include "Camera.h"
+#include "Settings.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <cstdlib>
 using namespace std;
-
-string hotel_name = "Your hotel's";
 
 ofstream rout("Reservation.txt", ios::app);
 
@@ -263,10 +262,15 @@ void getReport(const vector<Reservation>& reservations, const vector<Camera>& ca
         if (camera.availability > 0) occupied += 1;
     }
 
-    // Display the report
-    cout << "\033[H\033[J\n"; // Clear the screen
+    
+    cout << "\033[H\033[J\n";
+    string title = hotel_name;
+    int totalWidth = 40-15; // -15 is for " Report Summary"
+    int padding = (totalWidth - title.length()) / 2;
+    if (padding < 0) padding = 0;
+
     cout << "========================================\n";
-    cout << "         \033[1;34m" << hotel_name << " Report Summary\033[0m\n";
+    cout << string(padding, ' ') << "\033[1;34m" << hotel_name << " Report Summary\033[0m\n";
     cout << "========================================\n\n";
     cout << "\033[1;90mTotal income:\033[1;37m " << total << "$\033[0m\n";
     cout << "\033[1;90mNumber of rooms:\033[1;37m " << cameras.size() << "\033[0m\n";
