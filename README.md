@@ -2,7 +2,7 @@
 
 ## 🏨 Overview
 
-The **Hotel Room and Reservation Manager** is a comprehensive, console-based application that simplifies the management of hotel rooms, reservations, and client profiles. Designed for efficiency and user-friendliness, this application enables hotel staff to perform essential operations such as room assignments, billing, and profile management.
+The **Hotel Room and Reservation Manager** is a console-based application designed to simplify hotel operations. It provides tools for managing rooms, reservations, and client profiles, making it easier for hotel staff to handle day-to-day tasks efficiently.
 
 Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Management-System).
 
@@ -13,7 +13,7 @@ Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Manageme
 ### Room Management
 - View all rooms or check availability.
 - Add, delete, or modify room details (e.g., price).
-- Search for specific rooms based on ID.
+- Search for specific rooms by ID.
 
 ### Reservation Management
 - Add, modify, or delete reservations.
@@ -34,8 +34,8 @@ Explore the full project on [GitHub](https://github.com/vladuzzul/Hotel-Manageme
 ### Prerequisites
 
 Ensure the following are installed on your system:
-- **C++ Compiler**: Supports C++17 or later (e.g., GCC).
-- **CMake** (optional): For streamlined building.
+- **C++ Compiler**: Supports C++17 or later (e.g., GCC, Clang, MSVC).
+- **CMake**: For streamlined building.
 - **Standard Library**: Includes `<iostream>`, `<vector>`, `<string>`, `<sstream>`, `<iomanip>`.
 
 ### Installation Steps
@@ -45,15 +45,25 @@ Ensure the following are installed on your system:
    git clone https://github.com/vladuzzul/Hotel-Management-System.git
    cd Hotel-Management-System
    ```
-2. Open the cmake folder:
+2. Create a build directory and navigate into it:
    ```bash
-   ./cmake-build-debug
+   mkdir build
+   cd build
    ```
-3. Run the application:
+3. Run CMake to configure the project:
+   ```bash
+   cmake ..
+   ```
+4. Build the application:
+   ```bash
+   cmake --build .
+   ```
+5. Run the application:
    ```bash
    ./Hotel_Room_Rezervation_Manager
    ```
- - The program already comes with data in files, remove the data by hand using the program or you can empty all the files to get rid of the data (`Camera.txt`, `Reservation.txt`, `Profile.txt`)
+
+- The program comes preloaded with data in the following files: `Camera.txt`, `Reservation.txt`, `Profile.txt`, `Settings.txt`. To reset the data, either use the program's interface or manually clear these files.
 
 ---
 
@@ -74,21 +84,21 @@ Use numeric inputs to select menu options.
 ## 🔎 Code Highlights
 
 ### Modular Design
-- Core functionality is encapsulated in separate headers (`Functions.h`, `Classes.h`, `Reservation.h`, `Profile.h`, `Camera.h`), ensuring a clean and maintainable structure.
+- Core functionality is encapsulated in separate headers (`Functions.h`, `Classes.h`, `Reservation.h`, `Profile.h`, `Camera.h`, `Settings.h`), ensuring a clean and maintainable structure.
 
 ### Date Utilities
-- Features robust functions for date conversions, timestamp calculations, and date comparisons.
+- Includes robust functions for date conversions, timestamp calculations, and date comparisons.
 
 ### User-Friendly Interface
-- Incorporates dynamic screen-clearing commands to provide a seamless navigation experience.
+- Incorporates dynamic screen-clearing commands for seamless navigation.
 
 ---
 
 ## ❤️ Contributing
 
-Contributions are always welcome! Feel free to:
+Contributions are welcome! To contribute:
 - Fork the repository.
 - Submit pull requests for new features or bug fixes.
-- Open issues for feature suggestions or reporting bugs.
+- Open issues for feature suggestions or bug reports.
 
 ---
