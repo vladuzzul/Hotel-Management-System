@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20250405-0733-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.31.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="macOS"
+	Hostname="Air-Vlad"
+	OSRelease="14.0"
+	OSVersion="23A344"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="142"
+	ModelName="Intel(R) Core(TM) i5-8210Y CPU @ 1.60GHz"
+	ProcessorCacheSize="32768"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="1024"
+	TotalPhysicalMemory="8192"
+	LogicalProcessorsPerPhysical="8"
+	ProcessorClockFrequency="1600"
+	>
+	<Testing>
+		<StartDateTime>Apr 05 10:33 EEST</StartDateTime>
+		<StartTestTime>1743838400</StartTestTime>
+		<TestList/>
+		<EndDateTime>Apr 05 10:33 EEST</EndDateTime>
+		<EndTestTime>1743838400</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
