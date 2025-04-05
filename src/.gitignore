@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+/build/
+*.exe
+*.out
+*.test
+*.log
+*.DS_Store
+*.swp
+Hotel_Room_Rezervation_Manager
