@@ -123,7 +123,7 @@ void searchCamera(const std::vector<Camera>& cameras, const int& camera_id, cons
         showed = true;
         }
     }
-    if (!showed) std::cout << "\n!! Room not found !!\n";
+    if (!showed) std::cout << "\n\033[1;31m!! Room not found !!\033[0m\n";
 }
 
 void deleteCamera(std::vector<Camera> &cameras, const int& camera_id){

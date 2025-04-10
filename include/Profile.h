@@ -75,7 +75,7 @@ void searchProfile(const std::vector<Profile>& profiles, const std::string& name
         }
         showed = true;
     }
-    if (!showed) std::cout << "\n!! Room not found !!\n";
+    if (!showed) std::cout << "\n\033[1;31m!! Profile not found !!\033[0m\n";
 }
 
 void deleteProfile(std::vector<Profile>& profiles, const std::string& name) {
