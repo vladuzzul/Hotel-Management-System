@@ -13,4 +13,5 @@
 *.log
 *.DS_Store
 *.swp
-Hotel_Room_Rezervation_Manager
+src/main
+.idea/
