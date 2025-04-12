@@ -84,54 +84,72 @@ void saveReservation(const std::vector<Reservation>& reservations) {
 
 void addReservation(std::vector<Reservation>& reservations, std::vector<Camera>& cameras, std::vector<Profile>& profiles){
     Reservation reservation;
-    reservation.id = ReadUntilInt("\033[1;37mEnter reservation id: \033[0m");
-    std::cout << "\033[1;37mEnter client's name: "; std::getline(std::cin, reservation.client_name);
-    et:
-    reservation.room_number = ReadUntilInt("\033[1;37mEnter client's room number: \033[0m");
-    std::cout << "\033[1;37mEnter check-in date (DD.MM.YYYY): \033[0m"; std::getline(std::cin, reservation.check_in);
-    std::cout << "\033[1;37mEnter check-out date (DD.MM.YYYY): \033[0m"; std::getline(std::cin, reservation.check_out);
-    if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out))
-        goto et;
-    for (auto& camera : cameras){
-        if (reservation.room_number == camera.id){
-            reservation.payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
-            camera.availability += 1;
-            saveCamera(cameras);
+    if (!cameras.empty()){
+        reservation.id = ReadUntilInt("\033[1;37mEnter reservation id: \033[0m");
+        std::cout << "\033[1;37mEnter client's name: \033[0m"; std::getline(std::cin, reservation.client_name);
+        et:
+        reservation.room_number = ReadUntilInt("\033[1;37mEnter client's room number: \033[0m");
+        bool found = false;
+        if (reservation.room_number == -1) return;
+        for (const auto& camera : cameras){
+            if (reservation.room_number == camera.id) {
+                found = true;
+            }
         }
-    }
+        if (!found) {
+            std::cout << "\033[1;31m!! Room not found !!\033[93m\nPress -1 to go back\033[0m\n";
+            goto et;
+        }
+        std::cout << "\033[1;37mEnter check-in date (DD.MM.YYYY): \033[0m"; std::getline(std::cin, reservation.check_in);
+        std::cout << "\033[1;37mEnter check-out date (DD.MM.YYYY): \033[0m"; std::getline(std::cin, reservation.check_out);
+        if (checkOverBook(reservations, reservation.room_number, reservation.check_in, reservation.check_out))
+            goto et;
+        for (auto& camera : cameras){
+            if (reservation.room_number == camera.id){
+                reservation.payment = daysDifference(reservation.check_in, reservation.check_out) * camera.price;
+                camera.availability += 1;
+                saveCamera(cameras);
+            }
+        }
 
-    bool showed = false;
-    for (auto& profile : profiles)
-        if (equal_strings(reservation.client_name, profile.name)){
+        bool showed = false;
+        for (auto& profile : profiles)
+            if (equal_strings(reservation.client_name, profile.name)){
+                profile.visits++;
+                if (profile.visits <= 3){
+                    reservation.payment -= reservation.payment * 0.05; // 5% discount
+                }
+                else if (profile.visits > 3 && profile.visits <= 5){
+                    reservation.payment -= reservation.payment * 0.1; // 10% discount
+                }
+                else if (profile.visits > 5){
+                    reservation.payment -= reservation.payment * 0.15; // 15% discount
+                }
+                showed = true;
+            }
+
+        if (!showed){
+            // Add profile
+            Profile profile;
+            profile.name = reservation.client_name;
             profile.visits++;
-            if (profile.visits <= 3){
-                reservation.payment -= reservation.payment * 0.05; // 5% discount
-            }
-            else if (profile.visits > 3 && profile.visits <= 5){
-                reservation.payment -= reservation.payment * 0.1; // 10% discount
-            }
-            else if (profile.visits > 5){
-                reservation.payment -= reservation.payment * 0.15; // 15% discount
-            }
-            showed = true;
+            profiles.push_back(profile);
+            std::cout << "\n!! New profile created !!\n";
         }
 
-    if (!showed){
-        // Add profile
-        Profile profile;
-        profile.name = reservation.client_name;
-        profile.visits++;
-        profiles.push_back(profile);
-        std::cout << "\n!! New profile created !!\n";
+        reservation.payment = std::round(reservation.payment * 100) / 100;
+
+        saveProfile(profiles);
+        reservations.push_back(reservation);
+        saveReservation(reservations);
+
+        std::cout << "\n!! Reservation successfully added !!\n";
     }
-
-    reservation.payment = std::round(reservation.payment * 100) / 100;
-
-    saveProfile(profiles);
-    reservations.push_back(reservation);
-    saveReservation(reservations);
-
-    std::cout << "\n!! Reservation successfully added !!\n";
+    else{
+        std::cout << "\n\033[1;31m!! Reservations cannot be made without rooms !!\033[0m\n";
+        ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
+    }
+    
 }
 
 void showReservations(const std::vector<Reservation>& reservations, const std::vector<Camera>& cameras){

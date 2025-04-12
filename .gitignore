@@ -1,6 +1,34 @@
-build
+# Build files
+/build/
+Hotel_Room_Rezervation_Manager
+
+# Temporary files
+*.swp
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Local configuration
+Settings.txt
+
+# Data files
+Camera.txt
+Reservation.txt
+Client_profile.txt
+Bill.txt
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Test files
+/tests/build/
+
+# Executables
+*.exe
+*.dll
+*.so
+*.dylib
+Hotel_Room_Rezervation_Manager
 src/main
-.github
-.github/workflows
-.idea
-.vscode
