@@ -50,7 +50,7 @@ double ReadUntilInt(const std::string& text){
         std::cout << text;
         std::cin >> num;
         if (std::cin.fail()) {
-            std::cout << "Please enter a valid number!\n";
+            std::cout << "\033[1;31m!! Please enter a valid number !!\033[0m\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         } else {
