@@ -60,22 +60,48 @@ double ReadUntilInt(const std::string& text){
     }
 }
 
-bool equal_strings(const std::string& lhs, const std::string& rhs){
-    if (lhs.size() != rhs.size()){
+bool equal_strings(const std::string& lhs, const std::string& rhs) {
+    if (lhs.size() != rhs.size()) {
         return false;
     }
 
     auto lit = std::begin(lhs);
     auto rit = std::begin(rhs);
 
-    while (lit != std::end(lhs) and rit != std::end(rhs)){
-        if (std::toupper(*lit) != std::toupper(*rit)){
-            return false;
+    while (lit != std::end(lhs) && rit != std::end(rhs)) {
+        if (std::toupper(*lit) != std::toupper(*rit)) {
+            break;
         }
         ++lit;
         ++rit;
     }
-    return true;
+
+    if (lit == std::end(lhs) && rit == std::end(rhs)) {
+        return true;
+    }
+
+    auto spacePos = lhs.find(' ');
+    if (spacePos != std::string::npos) {
+        std::string firstPart = lhs.substr(0, spacePos);
+        std::string secondPart = lhs.substr(spacePos + 1);
+        std::string swapped = secondPart + " " + firstPart;
+
+        if (swapped.size() == rhs.size()) {
+            auto sit = std::begin(swapped);
+            auto rit2 = std::begin(rhs);
+
+            while (sit != std::end(swapped) && rit2 != std::end(rhs)) {
+                if (std::toupper(*sit) != std::toupper(*rit2)) {
+                    return false;
+                }
+                ++sit;
+                ++rit2;
+            }
+            return sit == std::end(swapped) && rit2 == std::end(rhs);
+        }
+    }
+
+    return false;
 }
 
 #endif //HOTEL_ROOM_REZERVATION_MANAGER_FUNCTIONS_H
