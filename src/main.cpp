@@ -5,6 +5,7 @@
 #include "../include/Profile.h"
 #include "../include/Classes.h"
 #include "../include/Functions.h"
+#include "../include/Menus.h"
 
 int main() {
     try {
@@ -24,47 +25,13 @@ int main() {
         std::cout << "\033[H\033[J\n";
 
         while (option != 6) {
+            em:
             std::string title = hotel_name;
-            int totalWidth = 40-29; // -29 is for " Room and Reservation Manager"
-            int padding = (totalWidth - title.length()) / 2;
-            if (padding < 0) padding = 0;
-
-            std::cout << "========================================\n";
-            std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Room and Reservation Manager" << "\033[0m\n";
-            std::cout << "========================================\n\n";
-            std::cout << "\033[1;90m1:\033[0m \033[1;37mRoom management\033[0m\n";
-            std::cout << "\033[1;90m2:\033[0m \033[1;37mReservation management\033[0m\n";
-            std::cout << "\033[1;90m3:\033[0m \033[1;37mProfile management\033[0m\n";
-            std::cout << "\033[1;90m4:\033[0m \033[1;37mGet full report\033[0m\n";
-            std::cout << "\033[1;90m5:\033[0m \033[1;37mSettings\033[0m\n";
-            std::cout << "\033[1;90m6:\033[0m \033[1;37mLeave\033[0m\n\n";
-            std::cout << "========================================\n";
-            option = ReadUntilInt("\033[1;32mOption: \033[0m");
-            std::cout << "\033[H\033[J\n";
-
-            switch (option) {
+            switch (displayMainMenu()) {
                 case 1: {
                     suboption = 0;
                     while (suboption != 7) {
-                        int totalWidth = 40-16; // -16 is for " Room Management"
-                        int padding = (totalWidth - title.length()) / 2;
-                        if (padding < 0) padding = 0;
-
-                        std::cout << "========================================\n";
-                        std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Room Management" << "\033[0m\n";
-                        std::cout << "========================================\n\n";
-                        std::cout << "\033[1;90m1:\033[0m \033[1;37mSee all rooms\033[0m\n";
-                        std::cout << "\033[1;90m2:\033[0m \033[1;37mSee available rooms\033[0m\n";
-                        std::cout << "\033[1;90m3:\033[0m \033[1;37mAdd room\033[0m\n";
-                        std::cout << "\033[1;90m4:\033[0m \033[1;37mDelete room\033[0m\n";
-                        std::cout << "\033[1;90m5:\033[0m \033[1;37mModify room price\033[0m\n";
-                        std::cout << "\033[1;90m6:\033[0m \033[1;37mSearch room\033[0m\n";
-                        std::cout << "\033[1;90m7:\033[0m \033[1;37mGo back\033[0m\n\n";
-                        std::cout << "========================================\n";
-                        suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
-                        std::cout << "\033[H\033[J\n";
-
-                        switch (suboption) {
+                        switch (displayRoomMenu()) {
                             case 1: {
                                 std::cout << "\033[H\033[J\n";
                                 showCameras(cameras, reservations);
@@ -121,7 +88,7 @@ int main() {
                             }
                             case 7: {
                                 std::cout << "\033[H\033[J\n";
-                                break;
+                                goto em;
                             }
                             default: {
                                 std::cout << "\033[H\033[J\n";
@@ -133,26 +100,8 @@ int main() {
                 }
                 case 2: {
                     suboption = 0;
-                    std::cout << "\033[H\033[J\n";
                     while (suboption != 7) {
-                        int totalWidth = 40-23; // -23 is for " Reservation Management"
-                        int padding = (totalWidth - title.length()) / 2;
-                        if (padding < 0) padding = 0;
-
-                        std::cout << "========================================\n";
-                        std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Reservation Management\033[0m\n";
-                        std::cout << "========================================\n\n";
-                        std::cout << "\033[1;90m1:\033[0m \033[1;37mSee all reservations\033[0m\n";
-                        std::cout << "\033[1;90m2:\033[0m \033[1;37mAdd reservation\033[0m\n";
-                        std::cout << "\033[1;90m3:\033[0m \033[1;37mDelete reservation\033[0m\n";
-                        std::cout << "\033[1;90m4:\033[0m \033[1;37mModify reservation\033[0m\n";
-                        std::cout << "\033[1;90m5:\033[0m \033[1;37mSearch reservation\033[0m\n";
-                        std::cout << "\033[1;90m6:\033[0m \033[1;37mGenerate bill\033[0m\n";
-                        std::cout << "\033[1;90m7:\033[0m \033[1;37mGo back\033[0m\n\n";
-                        std::cout << "========================================\n";
-                        suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
-                        std::cout << "\033[H\033[J\n";
-                        switch (suboption) {
+                        switch (displayReservationMenu()) {
                             case 1: {
                                 std::cout << "\033[H\033[J\n";
                                 showReservations(reservations, cameras);
@@ -211,7 +160,7 @@ int main() {
                             }
                             case 7: {
                                 std::cout << "\033[H\033[J\n";
-                                break;
+                                goto em;
                             }
                             default: {
                                 std::cout << "\033[H\033[J\n";
@@ -226,22 +175,7 @@ int main() {
                     suboption = 0;
                     std::cout << "\033[H\033[J\n";
                     while (suboption != 5) {
-                        int totalWidth = 40-26; // -26 is for " Client Profile Management"
-                        int padding = (totalWidth - title.length()) / 2;
-                        if (padding < 0) padding = 0;
-
-                        std::cout << "========================================\n";
-                        std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Client Profile Management\033[0m\n";
-                        std::cout << "========================================\n\n";
-                        std::cout << "\033[1;90m1:\033[0m \033[1;37mSee all profiles\033[0m\n";
-                        std::cout << "\033[1;90m2:\033[0m \033[1;37mSearch profile\033[0m\n";
-                        std::cout << "\033[1;90m3:\033[0m \033[1;37mModify profile\033[0m\n";
-                        std::cout << "\033[1;90m4:\033[0m \033[1;37mDelete profile\033[0m\n";
-                        std::cout << "\033[1;90m5:\033[0m \033[1;37mGo back\033[0m\n\n";
-                        std::cout << "========================================\n";
-                        suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
-                        std::cout << "\033[H\033[J\n";
-                        switch (suboption) {
+                        switch (displayProfileMenu()) {
                             case 1: {
                                 std::cout << "\033[H\033[J\n";
                                 showProfiles(profiles);
@@ -285,7 +219,7 @@ int main() {
                             }
                             case 5: {
                                 std::cout << "\033[H\033[J\n";
-                                break;
+                                goto em;
                             }
                             default: {
                                 std::cout << "\033[H\033[J\n";
@@ -304,26 +238,13 @@ int main() {
                         suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                         std::cout << "\033[H\033[J\n";
                     }
-                    break;
+                    goto em;           
                 }
                 case 5:{
                     std::cout << "\033[H\033[J\n";
                     suboption = 0;
                     while (suboption != 2) {
-                        std::string title = hotel_name;
-                        int totalWidth = 40-9; // -9 is for " Settings"
-                        int padding = (totalWidth - title.length()) / 2;
-                        if (padding < 0) padding = 0;
-
-                        std::cout << "========================================\n";
-                        std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Settings\033[0m\n";
-                        std::cout << "========================================\n\n";
-                        std::cout << "\033[1;90m1:\033[0m \033[1;37mChange hotel name\033[0m\n";
-                        std::cout << "\033[1;90m2:\033[0m \033[1;37mGo back\033[0m\n\n";
-                        std::cout << "========================================\n";
-                        suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
-                        std::cout << "\033[H\033[J\n";
-                        switch (suboption) {
+                        switch (displaySettingsMenu()) {
                             case 1: {
                                 ChangeSettings(hotel_name);
                                 std::cout << "\033[H\033[J\n";
@@ -331,7 +252,7 @@ int main() {
                             }
                             case 2: {
                                 std::cout << "\033[H\033[J\n";
-                                break;
+                                goto em;
                             }
                             default: {
                                 std::cout << "\033[H\033[J\n";
@@ -345,7 +266,7 @@ int main() {
                 case 6:{
                     std::cout << "\033[H\033[J\n";
                     std::cout << "\n\033[1;32mHave a nice day!\033[0m\n\n";
-                    break;
+                    return 0;
                 }
                 default:{
                     std::cout << "\033[H\033[J\n";
