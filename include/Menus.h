@@ -116,11 +116,4 @@ int displaySettingsMenu(){
     return suboption;
 }
 
-class Menus {
-public:
-    void displayMainMenu();
-    void displayBookingMenu();
-    void displayCustomerMenu();
-};
-
 #endif // MENUS_H
