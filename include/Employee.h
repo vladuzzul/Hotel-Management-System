@@ -61,9 +61,18 @@ void showEmployees(const std::vector<Employee>& employees) {
 
 void addEmployee(std::vector<Employee>& employees) {
     Employee employee;
-    std::cout << "\n\033[1;90mEnter employee ID: \033[1;37m";
-    std::cin >> employee.id;
-    std::cin.ignore();
+    while (true) {
+        std::cout << "\n\033[1;90mEnter employee ID: \033[1;37m";
+        std::cin >> employee.id;
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cout << "\n\033[1;31mInvalid input. Please enter a valid integer.\033[0m\n";
+        } else {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear any extra input
+            break;
+        }
+    }
     std::cout << "\n\033[1;90mEnter employee name: \033[1;37m";
     std::getline(std::cin, employee.name);
     std::cout << "\n\033[1;90mEnter employee role: \033[1;37m";
