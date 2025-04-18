@@ -280,7 +280,6 @@ void getReport(const std::vector<Reservation>& reservations, const std::vector<C
     }
 
     
-    std::cout << "\033[H\033[J\n";
     std::string title = hotel_name;
     int totalWidth = 40-15; // -15 is for " Report Summary"
     int padding = (totalWidth - title.length()) / 2;

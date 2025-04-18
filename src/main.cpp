@@ -6,16 +6,19 @@
 #include "../include/Classes.h"
 #include "../include/Functions.h"
 #include "../include/Menus.h"
+#include "../include/Employee.h"
 
 int main() {
     try {
         std::vector<Camera> cameras;
         std::vector<Reservation> reservations;
         std::vector<Profile> profiles;
+        std::vector<Employee> employees;   
 
         initialiseCamera(cameras);
         initialiseReservation(reservations);
         initialiseProfile(profiles);
+        initialiseEmployee(employees);
 
         int option = 0;
         int suboption;
@@ -233,14 +236,71 @@ int main() {
                 case 4:{
                     std::cout << "\033[H\033[J\n";
                     suboption = 0;
+                    while (suboption != 5){
+                        switch(displayEmployeeMenu()){
+                            case 1:{
+                                std::cout << "\033[H\033[J\n";
+                                showEmployees(employees);
+                                suboption = 0;
+                                while (suboption != 1){
+                                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
+                                }
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 2:{
+                                std::cout << "\033[H\033[J\n";
+                                addEmployee(employees);
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 3:{
+                                std::cout << "\033[H\033[J\n";
+                                int id;
+                                id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
+                                modifyEmployee(employees, id);
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 4:{
+                                std::cout << "\033[H\033[J\n";
+                                int id;
+                                id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
+                                deleteEmployee(employees, id);
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 5:{
+                                std::cout << "\033[H\033[J\n";
+                                goto em;
+                            }
+                            default:{
+                                std::cout << "\033[H\033[J\n";
+                                std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                            }
+                        }
+                    }
+                }
+                case 5:{
+                    std::cout << "\033[H\033[J\n";
+                    suboption = 0;
                     while (suboption != 1){
                         getReport(reservations, cameras);
                         suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
-                        std::cout << "\033[H\033[J\n";
+                        if (suboption == 1) {
+                            std::cout << "\033[H\033[J\n";
+                            break;
+                        }
+                        else {
+                            std::cout << "\033[H\033[J\n";
+                            std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                            suboption = 0;
+                        }
+                        
                     }
                     goto em;           
                 }
-                case 5:{
+                case 6:{
                     std::cout << "\033[H\033[J\n";
                     suboption = 0;
                     while (suboption != 2) {
@@ -263,7 +323,8 @@ int main() {
                     }
                     break;
                 }
-                case 6:{
+                
+                case 7:{
                     std::cout << "\033[H\033[J\n";
                     std::cout << "\n\033[1;32mHave a nice day!\033[0m\n\n";
                     return 0;

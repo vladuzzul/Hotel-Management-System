@@ -30,4 +30,11 @@ public:
     int visits = 0;
 };
 
+class Employee {
+public:
+    int id;
+    std::string name;
+    std::string role;
+};
+
 #endif //HOTEL_ROOM_REZERVATION_MANAGER_CLASSES_H
