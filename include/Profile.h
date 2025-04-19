@@ -72,8 +72,9 @@ void searchProfile(const std::vector<Profile>& profiles, const std::string& name
     for (const auto& profile : profiles) {
         if (equal_strings(profile.name, name)) {
             std::cout << "\n\033[1;90mClient \033[1;37m" << profile.name << " \033[1;90mhas a number of \033[1;37m" << profile.visits << " reservations.\n\n\033[0m";
+            showed = true;
         }
-        showed = true;
+        
     }
     if (!showed) std::cout << "\n\033[1;31m!! Profile not found !!\033[0m\n";
 }

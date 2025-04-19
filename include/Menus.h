@@ -86,9 +86,9 @@ int displayProfileMenu(){
     std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Client Profile Management\033[0m\n";
     std::cout << "========================================\n\n";
     std::cout << "\033[1;90m1:\033[0m \033[1;37mSee all profiles\033[0m\n";
-    std::cout << "\033[1;90m2:\033[0m \033[1;37mSearch profile\033[0m\n";
+    std::cout << "\033[1;90m2:\033[0m \033[1;37mDelete profile\033[0m\n";
     std::cout << "\033[1;90m3:\033[0m \033[1;37mModify profile\033[0m\n";
-    std::cout << "\033[1;90m4:\033[0m \033[1;37mDelete profile\033[0m\n";
+    std::cout << "\033[1;90m4:\033[0m \033[1;37mSearch profile\033[0m\n";
     std::cout << "\033[1;90m5:\033[0m \033[1;37mGo back\033[0m\n\n";
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
@@ -127,9 +127,10 @@ int displayEmployeeMenu(){
     std::cout << "========================================\n\n";
     std::cout << "\033[1;90m1:\033[0m \033[1;37mView all employees\033[0m\n";
     std::cout << "\033[1;90m2:\033[0m \033[1;37mAdd new employee\033[0m\n";
-    std::cout << "\033[1;90m3:\033[0m \033[1;37mChange employee role\033[0m\n";
-    std::cout << "\033[1;90m4:\033[0m \033[1;37mDelete employee\033[0m\n";
-    std::cout << "\033[1;90m5:\033[0m \033[1;37mGo back\033[0m\n\n";
+    std::cout << "\033[1;90m3:\033[0m \033[1;37mDelete employee\033[0m\n";
+    std::cout << "\033[1;90m4:\033[0m \033[1;37mModify employee role\033[0m\n";
+    std::cout << "\033[1;90m5:\033[0m \033[1;37mSearch employee\033[0m\n";
+    std::cout << "\033[1;90m6:\033[0m \033[1;37mGo back\033[0m\n\n";
     std::cout << "========================================\n";
 
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");

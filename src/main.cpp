@@ -194,11 +194,7 @@ int main() {
                                 std::string name;
                                 std::cout << "\033[1;37mEnter profile name: \033[0m";
                                 std::getline(std::cin, name);
-                                searchProfile(profiles, name);
-                                suboption = 0;
-                                while (suboption != 1){
-                                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
-                                }
+                                deleteProfile(profiles, name);
                                 std::cout << "\033[H\033[J\n";
                                 break;
                             }
@@ -216,7 +212,11 @@ int main() {
                                 std::string name;
                                 std::cout << "\033[1;37mEnter profile name: \033[0m";
                                 std::getline(std::cin, name);
-                                deleteProfile(profiles, name);
+                                searchProfile(profiles, name);
+                                suboption = 0;
+                                while (suboption != 1){
+                                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
+                                }
                                 std::cout << "\033[H\033[J\n";
                                 break;
                             }
@@ -236,7 +236,7 @@ int main() {
                 case 4:{
                     std::cout << "\033[H\033[J\n";
                     suboption = 0;
-                    while (suboption != 5){
+                    while (suboption != 6){
                         switch(displayEmployeeMenu()){
                             case 1:{
                                 std::cout << "\033[H\033[J\n";
@@ -258,7 +258,7 @@ int main() {
                                 std::cout << "\033[H\033[J\n";
                                 int id;
                                 id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
-                                modifyEmployee(employees, id);
+                                deleteEmployee(employees, id);
                                 std::cout << "\033[H\033[J\n";
                                 break;
                             }
@@ -266,11 +266,24 @@ int main() {
                                 std::cout << "\033[H\033[J\n";
                                 int id;
                                 id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
-                                deleteEmployee(employees, id);
+                                modifyEmployee(employees, id);
                                 std::cout << "\033[H\033[J\n";
                                 break;
                             }
                             case 5:{
+                                std::cout << "\033[H\033[J\n";
+                                std::string name;
+                                std::cout << "\033[1;37mEnter employee name: \033[0m";
+                                std::getline(std::cin, name);
+                                searchEmployee(employees, name);
+                                suboption = 0;
+                                while (suboption != 1){
+                                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
+                                }
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 6:{
                                 std::cout << "\033[H\033[J\n";
                                 goto em;
                             }
@@ -285,7 +298,7 @@ int main() {
                     std::cout << "\033[H\033[J\n";
                     suboption = 0;
                     while (suboption != 1){
-                        getReport(reservations, cameras);
+                        getReport(reservations, cameras, employees, profiles);
                         suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                         if (suboption == 1) {
                             std::cout << "\033[H\033[J\n";

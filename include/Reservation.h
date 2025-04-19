@@ -8,6 +8,7 @@
 #include "Profile.h"
 #include "Camera.h"
 #include "Settings.h"
+#include "Employee.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -263,7 +264,8 @@ void deleteReservation(std::vector<Reservation>& reservations, const std::string
     std::cout << "\n!! Reservation not found !!\n";
 }
 
-void getReport(const std::vector<Reservation>& reservations, const std::vector<Camera>& cameras) {
+void getReport(const std::vector<Reservation>& reservations, const std::vector<Camera>& cameras, const std::vector<Employee>& employees, const std::vector<Profile>& profiles) {
+    
     double total = 0;
     int occupied = 0;
 
@@ -293,6 +295,8 @@ void getReport(const std::vector<Reservation>& reservations, const std::vector<C
     std::cout << "\033[1;90mOccupied rooms:\033[1;37m " << occupied << "\033[0m\n";
     std::cout << "\033[1;90mAvailable rooms:\033[1;37m " << cameras.size() - occupied << "\033[0m\n";
     std::cout << "\033[1;90mNumber of reservations:\033[1;37m " << reservations.size() << "\033[0m\n";
+    std::cout << "\033[1;90mNumber of employees:\033[1;37m " << employees.size() << "\033[0m\n";
+    std::cout << "\033[1;90mNumber of profiles:\033[1;37m " << profiles.size() << "\033[0m\n";
     std::cout << "\n========================================\n";
 }
 
