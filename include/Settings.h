@@ -42,4 +42,24 @@ void ChangeSettings(std::string& hotel_name) {
     }
 }
 
+void resetDatabase(int& iChoice) {
+    std::cout << "\n\033[1;90mAre you sure you want to reset the database? (y/n): \033[0m";
+    char choice;
+    std::cin >> choice;
+    if (choice != 'y' && choice != 'Y') {
+        std::cout << "\n\033[1;31mDatabase reset cancelled.\033[0m\n";
+        iChoice = 0;
+        return;
+    }
+    std::cout << "\n";
+    DeleteFile("Employee.txt");
+    DeleteFile("Camera.txt");
+    DeleteFile("Reservation.txt");
+    DeleteFile("Client_profile.txt");
+    DeleteFile("Bill.txt");
+    DeleteFile("Settings.txt");
+    std::cout << "\n\033[1;32mDatabase reset successfully!\033[0m\n";
+    return;
+}
+
 #endif // HOTEL_ROOM_REZERVATION_MANAGER_SETTINGS_H

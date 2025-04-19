@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <cstdio>
 
 int dateToTimestamp(const std::string& date) {
     std::tm tm = {};
@@ -102,6 +103,14 @@ bool equal_strings(const std::string& lhs, const std::string& rhs) {
     }
 
     return false;
+}
+
+void DeleteFile(const std::string& filename) {
+    if (std::remove(filename.c_str()) == 0) {
+        std::cout << "\033[1;93mFile '" << filename << "' deleted successfully.\033[0m\n";
+    } else {
+        std::cout << "\033[1;31mError: Unable to delete file '" << filename << "'.\033[0m\n";
+    }
 }
 
 #endif //HOTEL_ROOM_REZERVATION_MANAGER_FUNCTIONS_H

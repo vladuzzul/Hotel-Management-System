@@ -323,7 +323,24 @@ int main() {
                                 std::cout << "\033[H\033[J\n";
                                 break;
                             }
-                            case 2: {
+                            case 2:{
+                                std::cout << "\033[H\033[J\n";
+                                int choice = 1;
+                                resetDatabase(choice);
+                                if(choice == 1){
+                                    cameras.clear();
+                                    reservations.clear();
+                                    profiles.clear();
+                                    employees.clear();
+                                }
+                                suboption = 0;
+                                while (suboption != 1){
+                                    suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
+                                }
+                                std::cout << "\033[H\033[J\n";
+                                break;
+                            }
+                            case 3: {
                                 std::cout << "\033[H\033[J\n";
                                 goto em;
                             }

@@ -107,7 +107,8 @@ int displaySettingsMenu(){
     std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Settings\033[0m\n";
     std::cout << "========================================\n\n";
     std::cout << "\033[1;90m1:\033[0m \033[1;37mChange hotel name\033[0m\n";
-    std::cout << "\033[1;90m2:\033[0m \033[1;37mGo back\033[0m\n\n";
+    std::cout << "\033[1;90m2:\033[0m \033[1;37mReset database\033[0m\n";
+    std::cout << "\033[1;90m3:\033[0m \033[1;37mGo back\033[0m\n\n";
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
