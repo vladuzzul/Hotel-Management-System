@@ -22,7 +22,6 @@ void LoadSettings() {
         settings.close();
     } else {
         hotel_name = "Your hotel's";
-        std::cout << "\n\033[1;31mError: Unable to load settings from file. Using default hotel name.\033[0m\n";
     }
 }
 

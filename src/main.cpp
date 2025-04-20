@@ -332,6 +332,7 @@ int main() {
                                     reservations.clear();
                                     profiles.clear();
                                     employees.clear();
+                                    LoadSettings();
                                 }
                                 suboption = 0;
                                 while (suboption != 1){
