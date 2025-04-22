@@ -50,8 +50,8 @@ void showEmployees(const std::vector<Employee>& employees) {
     else{
         for (const auto& employee : employees) {
             std::cout << "\033[1;34mEmployee ID \033[1;37m" << employee.id << ":\n";
-            std::cout << "\033\t[1;90mName: \033[1;37m" << employee.name << "\n";
-            std::cout << "\033\t[1;90mRole: \033[1;37m" << employee.role << "\n";
+            std::cout << "\t\033[1;90mName: \033[1;37m" << employee.name << "\n";
+            std::cout << "\t\033[1;90mRole: \033[1;37m" << employee.role << "\n";
         }
     }
     
@@ -60,7 +60,7 @@ void showEmployees(const std::vector<Employee>& employees) {
 void addEmployee(std::vector<Employee>& employees) {
     Employee employee;
     while (true) {
-        std::cout << "\n\033[1;90mEnter employee ID: \033[0m";
+        std::cout << "\n\033[1;37mEnter employee ID: \033[0m";
         std::cin >> employee.id;
         if (std::cin.fail()) {
             std::cin.clear(); // Clear the error flag
@@ -71,9 +71,9 @@ void addEmployee(std::vector<Employee>& employees) {
             break;
         }
     }
-    std::cout << "\n\033[1;90mEnter employee name: \033[0m";
+    std::cout << "\n\033[1;37mEnter employee name: \033[0m";
     std::getline(std::cin, employee.name);
-    std::cout << "\n\033[1;90mEnter employee role: \033[0m";
+    std::cout << "\n\033[1;37mEnter employee role: \033[0m";
     std::getline(std::cin, employee.role);
     employees.push_back(employee);
     saveEmployee(employees);
@@ -89,7 +89,7 @@ void modifyEmployee(std::vector<Employee>& employees, int id) {
     for (auto& employee : employees) {
         if (employee.id == id) {
             std::cout << "\n\033[1;90mCurrent role: \033[1;37m" << employee.role << "\n\033[0m\n";
-            std::cout << "\n\033[1;90mEnter new role: \033[0m";
+            std::cout << "\n\033[1;37mEnter new role: \033[0m";
             std::getline(std::cin, employee.role);
             saveEmployee(employees);
             std::cout << "\n!! Employee successfully modified !!\n";
