@@ -11,7 +11,7 @@
 std::string hotel_name;
 
 void LoadSettings() {
-    std::ifstream settings("Settings.txt");
+    std::ifstream settings("database/Settings.txt");
     if (settings.is_open()) {
         std::getline(settings, hotel_name);
         if (hotel_name.rfind("Hotel Name: ", 0) == 0) {
@@ -32,7 +32,7 @@ void ChangeSettings(std::string& hotel_name) {
     std::cout << "\n\033[1;32mHotel name successfully changed to " << hotel_name << "\033[0m\n";
     std::cout << "\n\033[1;90mSettings saved successfully!\033[0m\n";
 
-    std::ofstream settings("Settings.txt");
+    std::ofstream settings("database/Settings.txt");
     if (settings.is_open()) {
         settings << "Hotel Name: " << hotel_name << std::endl;
         settings.close();

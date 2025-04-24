@@ -15,7 +15,7 @@
 #include <cmath>
 #include <cstdlib>
 
-std::ofstream rout("Reservation.txt", std::ios::app);
+std::ofstream rout("database/Reservation.txt", std::ios::app);
 
 bool checkOverBook(const std::vector<Reservation>& reservations, int roomNum, const std::string& check_in, const std::string& check_out) {
     for (const auto& reservation : reservations)
@@ -31,7 +31,7 @@ bool checkOverBook(const std::vector<Reservation>& reservations, int roomNum, co
 }
 
 void initialiseReservation(std::vector<Reservation>& reservations) {
-    std::ifstream rin("Reservation.txt");
+    std::ifstream rin("database/Reservation.txt");
     if (!rin.is_open()) {
         std::cout << "\nNo inventory file found. Starting with an empty inventory.\n";
         return;

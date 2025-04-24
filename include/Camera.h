@@ -11,10 +11,10 @@
 #include <vector>
 #include <iomanip>
 
-std::ofstream camout("Camera.txt", std::ios::app);
+std::ofstream camout("database/Camera.txt", std::ios::app);
 
 void initialiseCamera(std::vector<Camera>& cameras) {
-    std::ifstream camin("Camera.txt");
+    std::ifstream camin("database/Camera.txt");
     if (!camin.is_open()) {
         std::cout << "No inventory file found. Starting with an empty inventory.\n";
         return;

@@ -10,10 +10,10 @@
 #include <iostream>
 #include <vector>
 
-std::ofstream pout("Client_profile.txt", std::ios::app);
+std::ofstream pout("database/Client_profile.txt", std::ios::app);
 
 void initialiseProfile(std::vector<Profile>& profiles) {
-    std::ifstream pin("Client_profile.txt");
+    std::ifstream pin("database/Client_profile.txt");
     if (!pin.is_open()) {
         std::cout << "No profile file found. Starting with an empty profile database. \n";
         return;

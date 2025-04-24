@@ -7,10 +7,10 @@
 #include <iostream>
 #include <vector>
 
-std::ofstream eout("Employee.txt", std::ios::app);
+std::ofstream eout("database/Employee.txt", std::ios::app);
 
 void initialiseEmployee(std::vector<Employee>& Employees) {
-    std::ifstream pin("Employee.txt");
+    std::ifstream pin("database/Employee.txt");
     if (!pin.is_open()) {
         std::cout << "No employee file found. Starting with an empty employee database. \n";
         return;
@@ -51,7 +51,7 @@ void showEmployees(const std::vector<Employee>& employees) {
         for (const auto& employee : employees) {
             std::cout << "\033[1;34mEmployee ID \033[1;37m" << employee.id << ":\n";
             std::cout << "\t\033[1;90mName: \033[1;37m" << employee.name << "\n";
-            std::cout << "\t\033[1;90mRole: \033[1;37m" << employee.role << "\n";
+            std::cout << "\t\033[1;90mRole: \033[1;37m" << employee.role << "\n\n";
         }
     }
     
