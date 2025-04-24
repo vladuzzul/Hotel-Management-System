@@ -56,11 +56,9 @@ Hotel-Management-System/
 │   └── Settings.h
 │
 ├── src/                       # Source code (implementations)
-│   ├── Camera.cpp
-│   ├── main.cpp
-│   ├── PersistenceManager.cpp
-│   ├── RoomManager.cpp
-│   └── *.txt                 # Local data storage files
+│   ├── database/
+│       └── *.txt                 # Local data storage files
+│   └── main.cpp
 │
 ├── CMakeLists.txt             # Build configuration
 ├── LICENSE  
