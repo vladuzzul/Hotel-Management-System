@@ -106,7 +106,8 @@ bool equal_strings(const std::string& lhs, const std::string& rhs) {
 }
 
 void DeleteFile(const std::string& filename) {
-    if (std::remove(filename.c_str()) == 0) {
+    std::string filePath = "database/" + filename;
+    if (std::remove(filePath.c_str()) == 0) {
         std::cout << "\033[1;93mFile '" << filename << "' deleted successfully.\033[0m\n";
     } else {
         std::cout << "\033[1;31mError: Unable to delete file '" << filename << "'.\033[0m\n";
