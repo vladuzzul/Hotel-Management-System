@@ -12,6 +12,9 @@ add_executable(Hotel_Room_Rezervation_Manager ${SOURCES})
 # Include directories
 target_include_directories(Hotel_Room_Rezervation_Manager PRIVATE src)
 
+# Create the database directory
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/database)
+
 # Add platform-specific configurations
 if(WIN32)
     target_compile_definitions(Hotel_Room_Rezervation_Manager PRIVATE PLATFORM_WINDOWS)

@@ -57,7 +57,7 @@ Hotel-Management-System/
 │
 ├── src/                       # Source code (implementations)
 │   ├── database/
-│       └── *.txt                 # Local data storage files
+│   │   └── *.txt                 # Local data storage files
 │   └── main.cpp
 │
 ├── CMakeLists.txt             # Build configuration
