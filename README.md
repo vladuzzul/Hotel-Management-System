@@ -92,7 +92,7 @@ cmake --build .
 ```
 #### Run the application
 ```bash
-./Hotel_Room_Rezervation_Manager
+./Hotel_Management_System
 ```
 
 ---

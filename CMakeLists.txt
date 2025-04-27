@@ -7,19 +7,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add source files
 file(GLOB_RECURSE SOURCES "src/*.cpp")
-add_executable(Hotel_Room_Rezervation_Manager ${SOURCES})
+add_executable(Hotel_Management_System ${SOURCES})
 
 # Include directories
-target_include_directories(Hotel_Room_Rezervation_Manager PRIVATE src)
+target_include_directories(Hotel_Management_System PRIVATE src)
 
 # Create the database directory
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/database)
 
 # Add platform-specific configurations
 if(WIN32)
-    target_compile_definitions(Hotel_Room_Rezervation_Manager PRIVATE PLATFORM_WINDOWS)
+    target_compile_definitions(Hotel_Management_System PRIVATE PLATFORM_WINDOWS)
 elseif(APPLE)
-    target_compile_definitions(Hotel_Room_Rezervation_Manager PRIVATE PLATFORM_MAC)
+    target_compile_definitions(Hotel_Management_System PRIVATE PLATFORM_MAC)
 elseif(UNIX)
-    target_compile_definitions(Hotel_Room_Rezervation_Manager PRIVATE PLATFORM_LINUX)
+    target_compile_definitions(Hotel_Management_System PRIVATE PLATFORM_LINUX)
 endif()
