@@ -35,7 +35,7 @@ void initialiseProfile(std::vector<Profile>& profiles) {
 
 void saveProfile(const std::vector<Profile>& profiles) {
     pout.close();
-    pout.open("Client_profile.txt", std::ios::trunc);
+    pout.open("database/Client_profile.txt", std::ios::trunc);
 
     for (const auto& profile : profiles)
         pout << profile.name << "," << profile.visits << '\n';

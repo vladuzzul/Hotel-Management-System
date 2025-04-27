@@ -46,7 +46,7 @@ void initialiseCamera(std::vector<Camera>& cameras) {
 
 void saveCamera(const std::vector<Camera>& cameras) {
     camout.close();
-    camout.open("Camera.txt", std::ios::trunc);
+    camout.open("database/Camera.txt", std::ios::trunc);
     for (const auto& camera : cameras) {
         camout << camera.id << ","
                << std::fixed << std::setprecision(2) << camera.price << ","

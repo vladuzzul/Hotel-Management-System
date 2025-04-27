@@ -71,7 +71,7 @@ void initialiseReservation(std::vector<Reservation>& reservations) {
 
 void saveReservation(const std::vector<Reservation>& reservations) {
     rout.close();
-    rout.open("Reservation.txt", std::ios::trunc);
+    rout.open("database/Reservation.txt", std::ios::trunc);
     for (const auto& reservation : reservations) {
         rout << reservation.id << ","
              << reservation.client_name << ","

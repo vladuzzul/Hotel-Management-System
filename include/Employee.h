@@ -36,7 +36,7 @@ void initialiseEmployee(std::vector<Employee>& Employees) {
 
 void saveEmployee(const std::vector<Employee>& employees) {
     eout.close();
-    eout.open("Employee.txt", std::ios::trunc);
+    eout.open("database/Employee.txt", std::ios::trunc);
     for (const auto& employee : employees)
         eout << employee.id << "," << employee.name << "," << employee.role << "\n";
     eout.close();
