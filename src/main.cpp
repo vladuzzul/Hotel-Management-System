@@ -9,7 +9,6 @@
 #include "../include/Employee.h"
 
 int main() {
-    try {
         std::vector<Camera> cameras;
         std::vector<Reservation> reservations;
         std::vector<Profile> profiles;
@@ -367,12 +366,4 @@ int main() {
                 }
             }
         }
-    } catch (const std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return EXIT_FAILURE;
-    } catch (...) {
-        std::cerr << "An unknown error occurred." << std::endl;
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
 }
