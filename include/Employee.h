@@ -10,14 +10,16 @@
 std::ofstream eout("database/Employee.txt", std::ios::app);
 
 void initialiseEmployee(std::vector<Employee>& Employees) {
-    std::ifstream pin("database/Employee.txt");
-    if (!pin.is_open()) {
+    std::ifstream ein("database/Employee.txt");
+    if (!ein.is_open()) {
+        std::ofstream newFile("database/Employee.txt");
+        newFile.close();
         std::cout << "No employee file found. Starting with an empty employee database. \n";
         return;
     }
 
     std::string line;
-    while (std::getline(pin, line)) {
+    while (std::getline(ein, line)) {
         size_t pos;
         Employee employee;
 

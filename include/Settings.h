@@ -12,7 +12,14 @@ std::string hotel_name;
 
 void LoadSettings() {
     std::ifstream settings("database/Settings.txt");
-    if (settings.is_open()) {
+    if (!settings.is_open()) {
+        std::ofstream newFile("database/Settings.txt");
+        newFile.close();
+        std::cout << "\nNo settings file found. Starting with default settings.\n";
+        hotel_name = "Your hotel's";
+        return;
+    }
+    else {
         std::getline(settings, hotel_name);
         if (hotel_name.rfind("Hotel Name: ", 0) == 0) {
             hotel_name = hotel_name.substr(12); // Remove "Hotel Name: " prefix
@@ -20,8 +27,6 @@ void LoadSettings() {
             hotel_name = "Your hotel's";
         }
         settings.close();
-    } else {
-        hotel_name = "Your hotel's";
     }
 }
 

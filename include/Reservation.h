@@ -33,6 +33,8 @@ bool checkOverBook(const std::vector<Reservation>& reservations, int roomNum, co
 void initialiseReservation(std::vector<Reservation>& reservations) {
     std::ifstream rin("database/Reservation.txt");
     if (!rin.is_open()) {
+        std::ofstream newFile("database/Reservation.txt");
+        newFile.close();
         std::cout << "\nNo inventory file found. Starting with an empty inventory.\n";
         return;
     }
@@ -301,7 +303,7 @@ void getReport(const std::vector<Reservation>& reservations, const std::vector<C
 }
 
 void generateBill(const std::vector<Reservation>& reservations,const std::vector<Camera>& cameras, const std::string& name, const std::vector<Profile>& profiles){
-    std::ofstream bout("Bill.txt", std::ios::trunc);
+    std::ofstream bout("database/Bill.txt", std::ios::trunc);
     for (const auto & reservation : reservations){
         if (equal_strings(reservation.client_name, name)){
             bout << "\nThank you for choosing " << hotel_name << "!\n";
@@ -348,7 +350,7 @@ void generateBill(const std::vector<Reservation>& reservations,const std::vector
 
             std::cout << "\nBill successfully generated!\n";
             bout.close();
-            std::string filename = "bill.txt";
+            std::string filename = "database/bill.txt";
 #if defined(_WIN32) || defined(_WIN64)
             std::string command = "notepad.exe " + filename;
                 system(command.c_str());

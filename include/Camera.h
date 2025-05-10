@@ -10,12 +10,31 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+void createDatabaseDirectory() {
+    if (mkdir("database", 0777) == -1) {
+        if (errno != EEXIST) {
+            std::cerr << "Error creating directory: " << strerror(errno) << "\n";
+        }
+    }
+}
 
 std::ofstream camout("database/Camera.txt", std::ios::app);
 
 void initialiseCamera(std::vector<Camera>& cameras) {
     std::ifstream camin("database/Camera.txt");
     if (!camin.is_open()) {
+        std::ofstream newFile("database/Camera.txt");
+        newFile.close();
+        camin.open("database/Camera.txt");
+        if (!camin.is_open()) {
+            createDatabaseDirectory();
+            std::ofstream newFile("database/Camera.txt");
+            newFile.close();
+            camin.open("database/Camera.txt");
+        }
         std::cout << "No inventory file found. Starting with an empty inventory.\n";
         return;
     }

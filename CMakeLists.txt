@@ -23,3 +23,7 @@ elseif(APPLE)
 elseif(UNIX)
     target_compile_definitions(Hotel_Management_System PRIVATE PLATFORM_LINUX)
 endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_link_libraries(Hotel_Management_System PRIVATE stdc++fs)
+endif()

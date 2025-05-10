@@ -15,6 +15,8 @@ std::ofstream pout("database/Client_profile.txt", std::ios::app);
 void initialiseProfile(std::vector<Profile>& profiles) {
     std::ifstream pin("database/Client_profile.txt");
     if (!pin.is_open()) {
+        std::ofstream newFile("database/Client_profile.txt");
+        newFile.close();
         std::cout << "No profile file found. Starting with an empty profile database. \n";
         return;
     }
