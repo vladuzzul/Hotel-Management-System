@@ -56,8 +56,6 @@ Hotel-Management-System/
 │   └── Settings.h
 │
 ├── src/                       # Source code (implementations)
-│   ├── database/
-│   │   └── *.txt                 # Local data storage files
 │   └── main.cpp
 │
 ├── CMakeLists.txt             # Build configuration
