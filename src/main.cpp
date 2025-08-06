@@ -42,6 +42,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 2: {
@@ -52,12 +53,14 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 3: {
                                 std::cout << "\033[H\033[J\n";
                                 addCamera(cameras);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 4: {
@@ -66,6 +69,7 @@ int main() {
                                 id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
                                 deleteCamera(cameras, id);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 5: {
@@ -74,6 +78,7 @@ int main() {
                                 id = ReadUntilInt("\033[1;37mEnter room id: \033[0m");
                                 modifyCameraPrice(cameras, id);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 6: {
@@ -86,10 +91,12 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 7: {
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 goto em;
                             }
                             default: {
@@ -112,12 +119,14 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 2: {
                                 std::cout << "\033[H\033[J\n";
                                 addReservation(reservations, cameras, profiles);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 3: {
@@ -127,6 +136,7 @@ int main() {
                                 std::getline(std::cin, name);
                                 deleteReservation(reservations, name, cameras);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 4: {
@@ -136,6 +146,7 @@ int main() {
                                 std::getline(std::cin, name);
                                 modifyReservation(reservations, cameras, name, profiles);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 5: {
@@ -149,6 +160,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 6: {
@@ -158,6 +170,7 @@ int main() {
                                 std::getline(std::cin, name);
                                 generateBill(reservations, cameras, name, profiles);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 7: {
@@ -167,6 +180,7 @@ int main() {
                             default: {
                                 std::cout << "\033[H\033[J\n";
                                 std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                                std::cout << "\033c";
                                 break;
                             }
                         }
@@ -186,6 +200,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 2: {
@@ -195,6 +210,7 @@ int main() {
                                 std::getline(std::cin, name);
                                 deleteProfile(profiles, name);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 3: {
@@ -204,6 +220,7 @@ int main() {
                                 std::getline(std::cin, name);
                                 modifyProfile(profiles, name);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 4: {
@@ -217,6 +234,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 5: {
@@ -226,6 +244,7 @@ int main() {
                             default: {
                                 std::cout << "\033[H\033[J\n";
                                 std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                                std::cout << "\033c";
                                 break;
                             }
                         }
@@ -245,12 +264,14 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 2:{
                                 std::cout << "\033[H\033[J\n";
                                 addEmployee(employees);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 3:{
@@ -259,6 +280,7 @@ int main() {
                                 id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
                                 deleteEmployee(employees, id);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 4:{
@@ -267,6 +289,7 @@ int main() {
                                 id = ReadUntilInt("\033[1;37mEnter employee id: \033[0m");
                                 modifyEmployee(employees, id);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 5:{
@@ -280,6 +303,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 6:{
@@ -301,6 +325,7 @@ int main() {
                         suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                         if (suboption == 1) {
                             std::cout << "\033[H\033[J\n";
+                            std::cout << "\033c";
                             break;
                         }
                         else {
@@ -320,6 +345,7 @@ int main() {
                             case 1: {
                                 ChangeSettings(hotel_name);
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 2:{
@@ -338,6 +364,7 @@ int main() {
                                     suboption = ReadUntilInt("\n\033[1;32mPress 1 to go back: \033[0m");
                                 }
                                 std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
                                 break;
                             }
                             case 3: {
@@ -347,6 +374,7 @@ int main() {
                             default: {
                                 std::cout << "\033[H\033[J\n";
                                 std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                                std::cout << "\033c";
                                 break;
                             }
                         }
@@ -362,6 +390,7 @@ int main() {
                 default:{
                     std::cout << "\033[H\033[J\n";
                     std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
+                    std::cout << "\033c";
                     break;
                 }
             }
