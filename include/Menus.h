@@ -24,6 +24,7 @@ int displayMainMenu(){
     std::cout << "========================================\n";
     int option = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
+    std::cout << "\033c";
     return option;
 }
 
@@ -48,6 +49,7 @@ int displayRoomMenu(){
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
 
     std::cout << "\033[H\033[J\n";
+    std::cout << "\033c";
     return suboption;
 }
 
@@ -71,7 +73,7 @@ int displayReservationMenu(){
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
-
+    std::cout << "\033c";
     return suboption;
 }
 
@@ -93,7 +95,7 @@ int displayProfileMenu(){
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
-
+    std::cout << "\033c";
     return suboption;
 }
 
@@ -112,7 +114,7 @@ int displaySettingsMenu(){
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
-
+    std::cout << "\033c";
     return suboption;
 }
 
@@ -136,6 +138,7 @@ int displayEmployeeMenu(){
 
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
+    std::cout << "\033c";
     return suboption;
 }
 
