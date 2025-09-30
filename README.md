@@ -36,6 +36,7 @@
 
 ### ⚙️ Settings
 - Change the displayed hotel name in the interface
+- Change the hotel system access password
 - Reset the entire database
 
 ---
