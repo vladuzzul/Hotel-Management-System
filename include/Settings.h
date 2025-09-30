@@ -9,6 +9,7 @@
 #include <fstream>
 
 std::string hotel_name;
+int hotel_password;
 
 void LoadSettings() {
     std::ifstream settings("database/Settings.txt");
@@ -17,6 +18,7 @@ void LoadSettings() {
         newFile.close();
         std::cout << "\nNo settings file found. Starting with default settings.\n";
         hotel_name = "Your hotel's";
+        hotel_password = 1234;
         return;
     }
     else {
@@ -26,25 +28,63 @@ void LoadSettings() {
         } else {
             hotel_name = "Your hotel's";
         }
+
+        std::string password_line;
+        std::getline(settings, password_line);
+        if (password_line.rfind("Hotel Password: ", 0) == 0) {
+            try {
+                hotel_password = std::stoi(password_line.substr(16)); // Remove "Hotel Password: " prefix
+            } catch (const std::invalid_argument&) {
+                hotel_password = 1234;
+            }
+        } else {
+            hotel_password = 1234;
+        }
         settings.close();
     }
 }
 
-void ChangeSettings(std::string& hotel_name) {
+void saveSettings() {
+    std::ofstream settings("database/Settings.txt", std::ios::trunc);
+    if (settings.is_open()) {
+        settings << "Hotel Name: " << hotel_name << std::endl;
+        settings << "Hotel Password: " << hotel_password << std::endl;
+
+    } else {
+        std::cout << "\n\033[1;31mError: Unable to save settings to file.\033[0m\n";
+    }
+    settings.flush();
+}
+
+void ChangeName(std::string& hotel_name) {
     std::cout << "\n\033[1;90mCurrent hotel name: \033[0m\033[1;37m" << hotel_name << "\033[0m\n";
     std::cout << "\033[1;90mEnter new hotel name: \033[0m";
     std::getline(std::cin, hotel_name);
     std::cout << "\n\033[1;32mHotel name successfully changed to " << hotel_name << "\033[0m\n";
-    std::cout << "\n\033[1;90mSettings saved successfully!\033[0m\n";
 
-    std::ofstream settings("database/Settings.txt");
-    if (settings.is_open()) {
-        settings << "Hotel Name: " << hotel_name << std::endl;
-        settings.close();
-    } else {
-        std::cout << "\n\033[1;31mError: Unable to save settings to file.\033[0m\n";
-    }
+
+    saveSettings();
+    std::cout << "\n\033[1;90mSettings saved successfully!\033[0m\n";
+    return;
 }
+
+void ChangePassword(int& hotel_password) {
+    std::cout << "\n\033[1;90mEnter current hotel password: \033[0m";
+    int old_password;
+    std::cin >> old_password;
+    if (old_password != hotel_password) {
+        std::cout << "\033[1;31mIncorrect password. Password change aborted.\033[0m\n\n";
+        return;
+    }
+    std::cin.ignore(); // Clear newline character from input buffer
+    std::cout << "\033[1;90mEnter new hotel password (numbers only): \033[0m";
+    int new_password;
+    std::cin >> new_password;
+    hotel_password = new_password;
+    saveSettings();
+}
+
+
 
 void resetDatabase(int& iChoice) {
     std::cout << "\n\033[1;90mAre you sure you want to reset the database? (y/n): \033[0m";
@@ -65,5 +105,7 @@ void resetDatabase(int& iChoice) {
     std::cout << "\n\033[1;32mDatabase reset successfully!\033[0m\n";
     return;
 }
+
+
 
 #endif // HOTEL_ROOM_REZERVATION_MANAGER_SETTINGS_H

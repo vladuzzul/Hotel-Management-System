@@ -109,8 +109,9 @@ int displaySettingsMenu(){
     std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Settings\033[0m\n";
     std::cout << "========================================\n\n";
     std::cout << "\033[1;90m1:\033[0m \033[1;37mChange hotel name\033[0m\n";
-    std::cout << "\033[1;90m2:\033[0m \033[1;37mReset database\033[0m\n";
-    std::cout << "\033[1;90m3:\033[0m \033[1;37mGo back\033[0m\n\n";
+    std::cout << "\033[1;90m2:\033[0m \033[1;37mChange hotel password\033[0m\n";
+    std::cout << "\033[1;90m3:\033[0m \033[1;37mReset database\033[0m\n";
+    std::cout << "\033[1;90m4:\033[0m \033[1;37mGo back\033[0m\n\n";
     std::cout << "========================================\n";
     int suboption = ReadUntilInt("\033[1;32mOption: \033[0m");
     std::cout << "\033[H\033[J\n";
@@ -140,6 +141,40 @@ int displayEmployeeMenu(){
     std::cout << "\033[H\033[J\n";
     std::cout << "\033c";
     return suboption;
+}
+
+bool confirmEnter() {
+    std::cout << "\033[H\033[J\n";
+    et:
+    std::string title = hotel_name;
+    int totalWidth = 40-29; // -29 is for " Room and Reservation Manager"
+    int padding = (totalWidth - title.length()) / 2;
+    if (padding < 0) padding = 0;
+
+    std::cout << "========================================\n";
+    std::cout << std::string(padding, ' ') << "\033[1;34m" << hotel_name << " Room and Reservation Manager" << "\033[0m\n";
+    std::cout << "========================================\n";
+    std::cout << "\033[1;33mDefault password is 1234" << "\033[0m\n";
+    std::cout << "\033[1;33mEnter '0' to reset the database.\033[0m\n\n";
+
+    int password = ReadUntilInt("\033[1;32mEnter password: \033[0m");
+    if (password == 0) {
+        int resetSuccess = 1;
+        resetDatabase(resetSuccess);
+        if (resetSuccess == 1) {
+            return 0;
+        }
+        std::cout << "\033[H\033[J\n";
+        goto et;
+    }
+    if (password == hotel_password) {
+        std::cout << "\033[H\033[J\n";
+        return true;
+    } else {
+        std::cout << "\033[H\033[J\n";
+        std::cout << "\n\033[1;31mIncorrect password. Try again.\033[0m\n";
+        goto et;
+    }
 }
 
 

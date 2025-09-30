@@ -9,23 +9,24 @@
 #include "../include/Employee.h"
 
 int main() {
-        std::vector<Camera> cameras;
-        std::vector<Reservation> reservations;
-        std::vector<Profile> profiles;
-        std::vector<Employee> employees;   
+    std::vector<Camera> cameras;
+    std::vector<Reservation> reservations;
+    std::vector<Profile> profiles;
+    std::vector<Employee> employees;
 
-        initialiseCamera(cameras);
-        initialiseReservation(reservations);
-        initialiseProfile(profiles);
-        initialiseEmployee(employees);
+    initialiseCamera(cameras);
+    initialiseReservation(reservations);
+    initialiseProfile(profiles);
+    initialiseEmployee(employees);
 
-        int option = 0;
-        int suboption;
-        
-        LoadSettings();
+    int option = 0;
+    int suboption;
 
-        std::cout << "\033[H\033[J\n";
+    LoadSettings();
 
+    std::cout << "\033[H\033[J\n";
+
+    if (confirmEnter()){
         while (option != 6) {
             em:
             std::string title = hotel_name;
@@ -333,9 +334,9 @@ int main() {
                             std::cout << "\033[1;31m!! Invalid option !!\033[0m\n";
                             suboption = 0;
                         }
-                        
+
                     }
-                    goto em;           
+                    goto em;
                 }
                 case 6:{
                     std::cout << "\033[H\033[J\n";
@@ -343,12 +344,18 @@ int main() {
                     while (suboption != 2) {
                         switch (displaySettingsMenu()) {
                             case 1: {
-                                ChangeSettings(hotel_name);
+                                ChangeName(hotel_name);
                                 std::cout << "\033[H\033[J\n";
                                 std::cout << "\033c";
                                 break;
                             }
-                            case 2:{
+                            case 2: {
+                                ChangePassword(hotel_password);
+                                std::cout << "\033[H\033[J\n";
+                                std::cout << "\033c";
+                                break;
+                            }
+                            case 3:{
                                 std::cout << "\033[H\033[J\n";
                                 int choice = 1;
                                 resetDatabase(choice);
@@ -367,7 +374,7 @@ int main() {
                                 std::cout << "\033c";
                                 break;
                             }
-                            case 3: {
+                            case 4: {
                                 std::cout << "\033[H\033[J\n";
                                 goto em;
                             }
@@ -381,7 +388,7 @@ int main() {
                     }
                     break;
                 }
-                
+
                 case 7:{
                     std::cout << "\033[H\033[J\n";
                     std::cout << "\n\033[1;32mHave a nice day!\033[0m\n\n";
@@ -395,4 +402,5 @@ int main() {
                 }
             }
         }
+    }
 }
