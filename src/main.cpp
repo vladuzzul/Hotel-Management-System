@@ -14,11 +14,6 @@ int main() {
     std::vector<Profile> profiles;
     std::vector<Employee> employees;
 
-    initialiseCamera(cameras);
-    initialiseReservation(reservations);
-    initialiseProfile(profiles);
-    initialiseEmployee(employees);
-
     int option = 0;
     int suboption;
 
@@ -27,6 +22,10 @@ int main() {
     std::cout << "\033[H\033[J\n";
 
     if (confirmEnter()){
+        initialiseCamera(cameras);
+        initialiseReservation(reservations);
+        initialiseProfile(profiles);
+        initialiseEmployee(employees);
         while (option != 6) {
             em:
             std::string title = hotel_name;

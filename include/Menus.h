@@ -162,7 +162,8 @@ bool confirmEnter() {
         int resetSuccess = 1;
         resetDatabase(resetSuccess);
         if (resetSuccess == 1) {
-            return 0;
+            hotel_password = 1234;
+            saveSettings();
         }
         std::cout << "\033[H\033[J\n";
         goto et;
