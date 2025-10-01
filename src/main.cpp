@@ -19,7 +19,7 @@ int main() {
 
     LoadSettings();
 
-    std::cout << "\033[H\033[J\n";
+    std::cout << "\033[H\033[J";
 
     if (confirmEnter()){
         initialiseCamera(cameras);

@@ -144,7 +144,7 @@ int displayEmployeeMenu(){
 }
 
 bool confirmEnter() {
-    std::cout << "\033[H\033[J\n";
+    std::cout << "\033[H\033[J";
     et:
     std::string title = hotel_name;
     int totalWidth = 40-29; // -29 is for " Room and Reservation Manager"
